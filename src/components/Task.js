@@ -7,7 +7,7 @@ import { images } from '../images';
 
 const Task = ({ text }) => {
     return (
-        <View Style={taskStyle.container}>
+        <View style={taskStyle.container}>
             <IconButton type={images.uncompleted} />
             <Text style={taskStyle.contents}>{text}</Text>
             <IconButton type={images.update} />
