@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import ModalAll from './ModalAll';
 
 export default function App() {
   const [newTask, setNewTask] = useState('');
@@ -11,6 +12,7 @@ export default function App() {
     4: { id: '4', text: 'todo list 4', completed: false },
     5: { id: '5', text: 'todo list 5', completed: false },
   });
+  const [modalVisible, setModalVisible] = useState(false);
 
   const _addTask = () => {
     const ID = Date.now().toString();
@@ -45,8 +47,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
+      <TouchableOpacity
+        onPress={() => {
+          setModalVisible(true);
+        }}
+        style={{ backgroundColor: 'pink', alignItems: 'center' }}
+      >
+        <Text style={{ fontSize: 20 }}>Modal</Text>
+      </TouchableOpacity>
+      <ModalAll isVisible={modalVisible} hide={() => setModalVisible(false)} />
     </View>
   );
 }
