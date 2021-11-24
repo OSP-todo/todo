@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
 import ModalTextInput from './ModalTextInput';
+import ModalDateInput from './ModalDateInput';
 
 const ModalAll = ({ isVisible, hide }) => {
   return (
@@ -9,7 +10,7 @@ const ModalAll = ({ isVisible, hide }) => {
         <View style={styles.modalView}>
           <Text style={styles.headerText}>To-Do Detail Info</Text>
           <ModalTextInput text="To do : " />
-          <ModalTextInput text="Date : " />
+          <ModalDateInput text="Due Date : " />
           <ModalTextInput text="Category : " />
           <ModalTextInput text="Image : " />
           <ModalTextInput text="Location : " />
