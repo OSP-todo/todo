@@ -4,7 +4,7 @@ import ModalTextInput from './ModalTextInput';
 
 const ModalAll = ({ isVisible, hide }) => {
   return (
-    <View style={{ marginTop: 22 }}>
+    <View>
       <Modal visible={isVisible} transparent={true}>
         <View style={styles.modalView}>
           <Text style={styles.headerText}>To-Do Detail Info</Text>
@@ -13,8 +13,9 @@ const ModalAll = ({ isVisible, hide }) => {
           <ModalTextInput text="Category : " />
           <ModalTextInput text="Image : " />
           <ModalTextInput text="Location : " />
+          <ModalTextInput text="Share : " />
           <TouchableOpacity onPress={hide} style={{ backgroundColor: 'green' }}>
-            <Text>완료</Text>
+            <Text>Submit</Text>
           </TouchableOpacity>
         </View>
       </Modal>
