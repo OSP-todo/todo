@@ -1,7 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import ModalAll from './ModalAll';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function App() {
   const [newTask, setNewTask] = useState('');
@@ -48,15 +55,23 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      <Text style={styles.header}>TO-Do List</Text>
+      <Text style={styles.header}>2021/11/22</Text>
+      <Text style={styles.header}>work : 70% Life : 30%</Text>
       <TouchableOpacity
         onPress={() => {
           setModalVisible(true);
         }}
-        style={{ backgroundColor: 'pink', alignItems: 'center' }}
       >
-        <Text style={{ fontSize: 20 }}>Modal</Text>
+        <MaterialCommunityIcons name="plus-circle" size={30} color="black" />
       </TouchableOpacity>
       <ModalAll isVisible={modalVisible} hide={() => setModalVisible(false)} />
+
+      <ScrollView style={styles.scrollView}>
+        <Text>Todo1</Text>
+        <Text>Todo1</Text>
+        <Text>Todo1</Text>
+      </ScrollView>
     </View>
   );
 }
@@ -67,5 +82,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 30,
+  },
+  header: {
+    fontSize: 20,
+    margin: 5,
+    padding: 10,
+    borderWidth: 1,
+    width: '100%',
+  },
+  scrollView: {
+    width: '100%',
+    borderWidth: 1,
+    margin: 10,
+    padding: 10,
   },
 });
