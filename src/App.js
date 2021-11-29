@@ -33,6 +33,7 @@ export default function App() {
                 <View width = {width-20}>
                     <Date text = "    2021 / 11 / 22" />
                     <Rate text = "Work: 70%                                     Life: 30%" />
+                    <Rate text = "_______________________________________"/>
                     <Topicon />
                     <Task text = "Todo item #1" />
                     <Task text = "Todo item #2" />
