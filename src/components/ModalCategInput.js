@@ -3,22 +3,22 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
 const ModalCategInput = ({ text }) => {
-  const [checked, setChecked] = useState('first');
+  const [checked, setChecked] = useState('work');
   return (
     <View style={styles.container}>
       <Text>{text}</Text>
       <View style={styles.category}>
         <Text>Work</Text>
         <RadioButton
-          value='first'
-          status={checked === 'first' ? 'checked' : 'unchecked'}
-          onPress={() => setChecked('first')}
+          value='work'
+          status={checked === 'work' ? 'checked' : 'unchecked'}
+          onPress={() => setChecked('work')}
         />
         <Text>Life</Text>
         <RadioButton
-          value='second'
-          status={checked === 'second' ? 'checked' : 'unchecked'}
-          onPress={() => setChecked('second')}
+          value='life'
+          status={checked === 'life' ? 'checked' : 'unchecked'}
+          onPress={() => setChecked('life')}
         />
       </View>
     </View>

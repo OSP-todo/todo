@@ -1,11 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 
-const ModalInput = ({ text }) => {
+const ModalInput = ({ text, value, onChangeText, onSubmitEditing }) => {
   return (
     <View style={styles.container}>
       <Text>{text}</Text>
-      <TextInput placeholder="내용을 입력하세요" style={styles.input} />
+      <TextInput
+        placeholder='내용을 입력하세요'
+        style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
+        onSubmitEditing={onSubmitEditing}
+      />
     </View>
   );
 };

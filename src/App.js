@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ModalAll from './ModalAll';
+import ModalAll from './components/ModalAll';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function App() {
@@ -54,7 +54,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
       <Text style={styles.header}>TO-Do List</Text>
       <Text style={styles.header}>2021/11/22</Text>
       <Text style={styles.header}>work : 70% Life : 30%</Text>
@@ -63,15 +63,24 @@ export default function App() {
           setModalVisible(true);
         }}
       >
-        <MaterialCommunityIcons name="plus-circle" size={30} color="black" />
+        <MaterialCommunityIcons name='plus-circle' size={30} color='black' />
       </TouchableOpacity>
-      <ModalAll isVisible={modalVisible} hide={() => setModalVisible(false)} />
+      <ModalAll
+        isVisible={modalVisible}
+        hide={() => setModalVisible(false)}
+        value={newTask}
+        onChangeText={_handleTextChange}
+        onSubmitEditing={_addTask}
+      />
 
       <ScrollView style={styles.scrollView}>
-        <Text>Todo1</Text>
-        <Text>Todo1</Text>
-        <Text>Todo1</Text>
+        {Object.values(tasks)
+          .reverse()
+          .map((item) => (
+            <Text key={item.key}>{item.text}</Text>
+          ))}
       </ScrollView>
+      <Text style={styles.header}>Share 하기</Text>
     </View>
   );
 }

@@ -4,13 +4,24 @@ import ModalTextInput from './ModalTextInput';
 import ModalDateInput from './ModalDateInput';
 import ModalCategInput from './ModalCategInput';
 
-const ModalAll = ({ isVisible, hide }) => {
+const ModalAll = ({
+  isVisible,
+  hide,
+  value,
+  onChangeText,
+  onSubmitEditing,
+}) => {
   return (
     <View>
       <Modal visible={isVisible} transparent={true}>
         <View style={styles.modalView}>
           <Text style={styles.headerText}>To-Do Detail Info</Text>
-          <ModalTextInput text='To do : ' />
+          <ModalTextInput
+            text='To do : '
+            value={value}
+            onChangeText={onChangeText}
+            onSubmitEditing={onSubmitEditing}
+          />
           <ModalDateInput text='Due Date : ' />
           <ModalCategInput text='Category : ' />
           <ModalTextInput text='Image : ' />
