@@ -30,8 +30,8 @@ export default () => {
                 })}
                 tabBarOptions={{ activeTintColor: 'tomato', inactiveTintColor: 'gray'}}
                 >
-              <Tabs.Screen  options={{ headerShown: false }} name="Work" component={Work} />
-              <Tabs.Screen  options={{ headerShown: false }} name="Life" component={Life} />
+              <Tabs.Screen options={{ headerShown: false }} name="Work" component={Work} />
+              <Tabs.Screen options={{ headerShown: false }} name="Life" component={Life} />
           </Tabs.Navigator>
       </NavigationContainer>
   );
