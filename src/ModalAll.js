@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
 import ModalTextInput from './ModalTextInput';
 import ModalDateInput from './ModalDateInput';
+import ModalCategInput from './ModalCategInput';
 
 const ModalAll = ({ isVisible, hide }) => {
   return (
@@ -9,12 +10,12 @@ const ModalAll = ({ isVisible, hide }) => {
       <Modal visible={isVisible} transparent={true}>
         <View style={styles.modalView}>
           <Text style={styles.headerText}>To-Do Detail Info</Text>
-          <ModalTextInput text="To do : " />
-          <ModalDateInput text="Due Date : " />
-          <ModalTextInput text="Category : " />
-          <ModalTextInput text="Image : " />
-          <ModalTextInput text="Location : " />
-          <ModalTextInput text="Share : " />
+          <ModalTextInput text='To do : ' />
+          <ModalDateInput text='Due Date : ' />
+          <ModalCategInput text='Category : ' />
+          <ModalTextInput text='Image : ' />
+          <ModalTextInput text='Location : ' />
+          <ModalTextInput text='Share : ' />
           <TouchableOpacity onPress={hide} style={{ backgroundColor: 'green' }}>
             <Text>Submit</Text>
           </TouchableOpacity>
