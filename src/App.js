@@ -50,12 +50,6 @@ export default function App() {
         <SafeAreaView style={viewStyles.container}>
             <StatusBar barStyle="light-content" style={barStyles.statusbar}/>
             <Text style={textStyles.title}>TODO List</Text>
-                <ScrollView>
-                  {Object.values(tasks).reverse().map(item => (
-                    <Task key={item.id} item={item} deleteTask={_deleteTask}
-                    toggleTask={_toggleTask} />
-                  ))}
-                </ScrollView>
             {/* <Input value={newTask} onChangeText={_handleTextChange}
             onSubmitEditing={_addTask}/> */}
                 <View width = {width-20}>
@@ -63,8 +57,12 @@ export default function App() {
                     <Rate text = "Work: 70%                                     Life: 30%" />
                     <Rate text = "_______________________________________"/>
                     <Topicon />
-                    <Task text = "Todo item #1" />
-                    <Task text = "Todo item #2" />
+                    <ScrollView>
+                        {Object.values(tasks).reverse().map(item => (
+                        <Task key={item.id} item={item} deleteTask={_deleteTask}
+                        toggleTask={_toggleTask} />
+                    ))}
+                    </ScrollView>
                     <Category text = "WORK      LIFE"/>
                 </View>
         </SafeAreaView>
