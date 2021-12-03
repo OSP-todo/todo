@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import Work from "./Work";
 import Life from "./Life";
+import {theme} from "./theme";
 
 const Tabs = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ export default (props) => {
                     return (
                             <MaterialIcons
                                 name={iconName}
-                                color={focused ? "tomato" : "lightgrey"}
+                                color={focused ? theme.itemBackground : "lightgrey"}
                                 size={24}
                             />
                         );}
@@ -36,7 +37,7 @@ export default (props) => {
                             fontSize: 10,
                             marginBottom: 5
                         },
-                        activeTintColor: 'tomato', inactiveTintColor: 'gray',
+                        activeTintColor: theme.itemBackground, inactiveTintColor: 'gray',
                     }}
                 >
                 <Tabs.Screen options={{ headerShown: false }} name="WORK" children={()=><Work workTasks={props.workTasks}/>} />

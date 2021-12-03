@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import Task from './components/Task';
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -15,11 +16,11 @@ function Work(props) {
   return (
     <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
       <ScrollView style={styles.scrollView}>
-          <Text>{Object.values(props.workTasks)
+          {Object.values(props.workTasks)
           .reverse()
           .map((item) => (
-            <Text key={item.key}>{item.text}</Text>
-          ))}</Text>
+            <Task item={item} key={item.key}>{item.text}</Task>
+          ))}
       </ScrollView>
     </View>
   );
