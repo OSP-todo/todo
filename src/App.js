@@ -17,6 +17,7 @@ import IconButton from './components/IconButton';
 import Rate from './components/Rate';
 import {theme} from './theme';
 import {viewStyles, textStyles, barStyles} from './styles';
+import onShare from '../Share';
 
 export default function App() {
   const width = Dimensions.get('window').width;
@@ -104,7 +105,7 @@ export default function App() {
           {/**task 배열을 map해야할 자리 */}
           <Tabs workTasks = {workTasks} lifeTasks = {lifeTasks}/>
       </View>
-      <Text style={styles.header}>Share 하기</Text>
+      <Text style={styles.header} onPress={()=> onShare(tasks)}>오늘 할 일 공유하기</Text>
       </SafeAreaView>
   );
 }
@@ -118,6 +119,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   header: {
+    textAlign: 'center',
     fontSize: 20,
     margin: 5,
     padding: 10,
