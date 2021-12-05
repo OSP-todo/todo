@@ -4,12 +4,20 @@ import {theme} from '../theme';
 import PropTypes from 'prop-types';
 import { images } from '../images';
 
-const IconButton = ({type, onPressOut}) => {
+const IconButton = ({type, onPressOut, id}) => {
+    const _onPressOut = () => {
+        onPressOut(id);
+    };
+
     return (
-        <Pressable onPressOut={onPressOut}>
+        <Pressable onPressOut={_onPressOut}>
             <Image source={type} style={iconStyle.icon}/>
         </Pressable>
     );
+};
+
+IconButton.defaultProps = {
+    onPressOut: () => {},
 };
 
 const iconStyle = StyleSheet.create({
@@ -24,6 +32,7 @@ const iconStyle = StyleSheet.create({
 IconButton.propTypes = {
     type: PropTypes.oneOf(Object.values(images)).isRequired,
     onPressOut: PropTypes.func,
+    id: PropTypes.string,
 };
 
 export default IconButton;

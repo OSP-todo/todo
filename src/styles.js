@@ -1,12 +1,13 @@
-import { StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {theme} from './theme';
 
 export const viewStyles = StyleSheet.create({
     container: {
         flex: 1,
+        width: '100%',
         backgroundColor: theme.background,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start'
     },
 });
 
