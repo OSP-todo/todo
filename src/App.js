@@ -170,4 +170,3 @@ const topStyle = StyleSheet.create({
       color: theme.text,
   },
 });
-

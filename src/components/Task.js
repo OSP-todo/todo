@@ -19,7 +19,6 @@ const Task = ({ item, deleteTask, toggleTask }) => {
             {/* <IconButton type={images.delete} id={item.id} onPressOut={deleteTask} completed={item.completed} /> */}
         </View>
     )
-
 }
 
 const taskStyle = StyleSheet.create({
