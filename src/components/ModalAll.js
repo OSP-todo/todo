@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Modal, TouchableOpacity } from 'react-native';
 import ModalTextInput from './ModalTextInput';
 import ModalDateInput from './ModalDateInput';
 import ModalCategInput from './ModalCategInput';
+import { theme } from '../theme';
 
 const ModalAll = ({
   isVisible,
@@ -27,7 +28,7 @@ const ModalAll = ({
           <ModalTextInput text='Image : ' />
           <ModalTextInput text='Location : ' />
           <ModalTextInput text='Share : ' />
-          <TouchableOpacity onPress={hide} style={{ backgroundColor: 'green' }}>
+          <TouchableOpacity onPress={hide} style={{ padding: 5, paddingHorizontal: 15, borderRadius: 10, backgroundColor: theme.itemBackground }}>
             <Text>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
+    marginTop: 120,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
