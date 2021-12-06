@@ -8,8 +8,12 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 export default function ShowDate(){
     //상단 날짜
     var today = new Date();
-    let format_date = today.getFullYear() + "/" + (today.getMonth()+1) + "/" + today.getDate();
-    const [topDate, setTopDate] = useState(format_date);
+    var year = today.getFullYear();
+    var month = (today.getMonth()+1);
+    var date = today.getDate();
+    if(month < 10) month = '0' + month;
+    if(date < 10) date = '0' + date;
+    const [topDate, setTopDate] = useState(year + "/" + month  + "/" + date);
 
     //date format 바꿔주는 함수
 Date.prototype.format = function (f) {
@@ -91,14 +95,14 @@ Date.prototype.format = function (f) {
         var date = parseInt(strArray[2]);
         var month31 = new Array(1, 3, 5, 7, 8, 10, 12);
         date = date - 1;
-        if(date==0 && month in month31){
+        if(date==0 && month31.includes(month)){
             date = 31;
             month = month - 1;
             if(month==0){
                 year = year -1;
                 month = 12;
             }
-        }else if(date==0 && !(month in month31)){
+        }else if(date==0 && !(month31.includes(month))){
             date = 30;
             month = month - 1;
             if(month==0){
@@ -106,7 +110,11 @@ Date.prototype.format = function (f) {
                 month = 12;
             }
         }
-        var decreasedNewDate = String(year) + "/" + String(month) + "/" + String(date);
+
+        if(month < 10) month = '0' + String(month); else month = String(month);
+        if(date < 10) date = '0' + String(date); else date = String(date);
+
+        var decreasedNewDate = String(year) + "/" + month + "/" + date;
         setTopDate(decreasedNewDate);
     }
     const increaseDate = (topDate) =>{
@@ -115,23 +123,44 @@ Date.prototype.format = function (f) {
         var month = parseInt(strArray[1]);
         var date = parseInt(strArray[2]);
         var month31 = new Array(1, 3, 5, 7, 8, 10, 12);
+        var month30 = new Array(4, 6, 9, 11);
         date = date + 1;
-        if(date==31 && month in month31){
+        if(month==2){
+          if(((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)){ //윤년
+            if(date==30){
+              date = 1;
+              month++;
+            }              
+          }else{
+            if(date==29){
+              date = 1;
+              month++;
+            }
+          }
+        }else if (month30.includes(month)){
+          if(date==31){
             date = 1;
             month = month + 1;
             if(month==13){
                 year = year + 1;
                 month = 1;
-            }
-        }else if(date==30 && !(month in month31)){
+            }  
+          }
+        }else if (month31.includes(month)){
+          if(date==32){
             date = 1;
             month = month + 1;
             if(month==13){
                 year = year + 1;
                 month = 1;
-            }
+            }  
+          }
         }
-        var increasedNewDate = String(year) + "/" + String(month) + "/" + String(date);
+
+        if(month < 10) month = '0' + String(month); else month = String(month);
+        if(date < 10) date = '0' + String(date); else date = String(date);
+
+        var increasedNewDate = String(year) + "/" + month + "/" + date;
         setTopDate(increasedNewDate);
     }
 
