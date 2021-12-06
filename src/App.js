@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StatusBar,
   Dimensions,
   SafeAreaView,
   StyleSheet,
   Text,
+  Image,
+  TouchableWithoutFeedback,
   TouchableOpacity,
   View,
 } from 'react-native';
 import ModalAll from './components/ModalAll';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Tabs from "./Tabs";
-import Date from './components/ShowDate';
 import { images } from './images';
 import IconButton from './components/IconButton';
 import Rate from './components/Rate';
 import {theme} from './theme';
 import {viewStyles, textStyles, barStyles} from './styles';
 import onShare from '../Share';
+import ShowDate from './components/ShowDate';
 
 export default function App() {
-  const width = Dimensions.get('window').width;
-
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState({
     1: { id: '1', text: 'todo list 1', completed: true, WorkOrLife : 'Work' },
@@ -29,14 +29,20 @@ export default function App() {
     3: { id: '3', text: 'todo list 3', completed: false, WorkOrLife : 'Work' },
     4: { id: '4', text: 'todo list 4', completed: false, WorkOrLife : 'Life' },
     5: { id: '5', text: 'todo list 5', completed: false, WorkOrLife : 'Life' },
-  });
-
-  {/** Task 배열에서 work랑 life를 분류해줌. add랑 delete할 때마다 얘도 상태 바꿔줘야할듯...? */}
+  });  
+  
+  //Task 배열에서 work랑 life를 분류해줌. add랑 delete할 때마다 얘도 상태 바꿔줘야할듯...?
   const [workTasks, setWorkTasks] = useState(Object.values(tasks).reverse().filter(item => item.WorkOrLife=='Work'));
   const [lifeTasks, setLifeTasks] = useState(Object.values(tasks).reverse().filter(item => item.WorkOrLife=='Life'));
   const [ratio, setRatio] = useState((Object.values(workTasks).length/Object.values(tasks).length)*100);
-
-
+  
+  //All Select Icon 변경
+  const [allSelect, setAllSelect] = useState(false);
+  const _allSelectBox = () => { // 클릭시 일어나는 변화
+    setAllSelect(!allSelect);
+    //여기에 체크아이콘을 전부 바꿔주는 함수가
+  };
+ 
   const [modalVisible, setModalVisible] = useState(false);
 
   const _addTask = () => {
@@ -74,7 +80,7 @@ export default function App() {
     <SafeAreaView style={viewStyles.container}>
       <StatusBar barStyle="light-content" style={barStyles.statusbar}/>
       <Text style={textStyles.title}>TODO List</Text>
-          <Date text = "    2021 / 11 / 22    " />
+          <ShowDate/>
           <View style={styles.workAndLife}>
             <Rate text = {`WORK : ${ratio}%`} />
             <Rate text = {`LIFE : ${100-ratio}%`} />
@@ -82,7 +88,13 @@ export default function App() {
           
           {/**Top Icon */}
           <View style={topStyle.container}>
-            <IconButton type={images.unselected}/>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                _allSelectBox();
+              }}
+              >
+              <Image source = {allSelect? images.selected : images.unselected} style = {styles.icon}/>
+            </TouchableWithoutFeedback>
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(true);
@@ -113,26 +125,37 @@ export default function App() {
 const styles = StyleSheet.create({
   header: {
     textAlign: 'center',
+    fontWeight: '400',
     fontSize: 20,
     margin: 5,
     padding: 10,
-    borderWidth: 1,
+    backgroundColor: theme.itemBackground,
     width: '100%',
   },
   scrollView: {
     width: '100%',
     height: '65%',
-    borderWidth: 1,
     margin: 5,
     padding: 10,
   },
   workAndLife: {
     width:'100%',
+    borderRadius: 10,
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight: 10,
     justifyContent: 'space-between',
     marginLeft: 0
+  },
+  icon: {
+    tintColor: theme.text,
+    width: 30,
+    height: 30,
+    margin: 10,
+  },
+  bar: {
+    width: '60%',
+    backgroundColor: theme.itemBackground
   }
 });
 
