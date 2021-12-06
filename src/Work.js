@@ -5,8 +5,10 @@ import Task from './components/Task';
 const styles = StyleSheet.create({
   scrollView: {
     width: '100%',
-    borderWidth: 1,
-    margin: 10,
+    backgroundColor: 'rgba(1,1,1,0.05)',
+    marginHorizontal: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     padding: 10,
   },
 });
