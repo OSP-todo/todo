@@ -32,13 +32,14 @@ export default function App() {
     5: { id: '5', text: 'todo list 5', completed: false, WorkOrLife : 'Life' },
   });  
   
-  const [workTasks, setWorkTasks] = useState(Object.values(tasks).reverse().filter(item => item.WorkOrLife=='Work'));
-  const [lifeTasks, setLifeTasks] = useState(Object.values(tasks).reverse().filter(item => item.WorkOrLife=='Life'));
-  const [ratio, setRatio] = useState((Object.values(workTasks).length/Object.values(tasks).length)*100);
+  const workTasks = Object.values(tasks).filter(item => item.WorkOrLife=='Work');
+  const lifeTasks = Object.values(tasks).filter(item => item.WorkOrLife=='Life');
+  const ratio = (Object.values(workTasks).length/Object.values(tasks).length)*100;
   
   //All Select Icon 변경
   const [allSelect, setAllSelect] = useState(false);
   const _allSelectBox = () => { // 클릭시 일어나는 변화
+    console.log(lifeTasks);
     setAllSelect(!allSelect);
     //여기에 체크아이콘을 전부 바꿔주는 함수가
   };
@@ -63,11 +64,7 @@ export default function App() {
     setTasks(currentTasks);
   };
 
-  const _toggleTask = (id) => {
-    const currentTasks = Object.assign({}, tasks);
-    currentTasks[id]['completed'] = !currentTasks[id]['completed'];
-    setTasks(currentTasks);
-  };
+
 
   const _updateTask = (item) => {
     const currentTasks = Object.assign({}, tasks);
