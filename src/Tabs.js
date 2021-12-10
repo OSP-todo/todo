@@ -40,8 +40,8 @@ export default (props) => {
                         activeTintColor: theme.itemBackground, inactiveTintColor: 'gray',
                     }}
                 >
-                <Tabs.Screen options={{ headerShown: false }} name="WORK" children={()=><Work workTasks={props.workTasks}/>} />
-                <Tabs.Screen options={{ headerShown: false }} name="LIFE" children={()=><Life lifeTasks={props.lifeTasks}/>} />
+                <Tabs.Screen options={{ headerShown: false }} name="WORK" children={()=><Work workTasks={props.workTasks} filterIndex={props.filterIndex}/>} />
+                <Tabs.Screen options={{ headerShown: false }} name="LIFE" children={()=><Life lifeTasks={props.lifeTasks} filterIndex={props.filterIndex}/>} />
             </Tabs.Navigator>
         </NavigationContainer>
     );

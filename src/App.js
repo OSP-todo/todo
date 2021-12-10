@@ -18,8 +18,9 @@ import IconButton from './components/IconButton';
 import Rate from './components/Rate';
 import {theme} from './theme';
 import {viewStyles, textStyles, barStyles} from './styles';
-import onShare from '../Share';
+import onShare from './components/Share';
 import ShowDate from './components/ShowDate';
+import SelectDropdown from 'react-native-select-dropdown'
 
 export default function App() {
   const [newTask, setNewTask] = useState('');
@@ -31,7 +32,6 @@ export default function App() {
     5: { id: '5', text: 'todo list 5', completed: false, WorkOrLife : 'Life' },
   });  
   
-  //Task 배열에서 work랑 life를 분류해줌. add랑 delete할 때마다 얘도 상태 바꿔줘야할듯...?
   const [workTasks, setWorkTasks] = useState(Object.values(tasks).reverse().filter(item => item.WorkOrLife=='Work'));
   const [lifeTasks, setLifeTasks] = useState(Object.values(tasks).reverse().filter(item => item.WorkOrLife=='Life'));
   const [ratio, setRatio] = useState((Object.values(workTasks).length/Object.values(tasks).length)*100);
@@ -42,7 +42,10 @@ export default function App() {
     setAllSelect(!allSelect);
     //여기에 체크아이콘을 전부 바꿔주는 함수가
   };
- 
+
+  //filtering (드롭다운 메뉴에서 메뉴 선택. App.js에선 선택된 메뉴 인덱스를 보내주기만 하고 필터링은 Work & Life에서 진행한다))
+  const [filterIndex, setFilterIndex] = useState(0); // 0. 1. 2
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const _addTask = () => {
@@ -87,35 +90,47 @@ export default function App() {
           </View>
           
           {/**Top Icon */}
-          <View style={topStyle.container}>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                _allSelectBox();
-              }}
-              >
-              <Image source = {allSelect? images.selected : images.unselected} style = {styles.icon}/>
-            </TouchableWithoutFeedback>
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(true);
+            <View style={topStyle.container}>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  _allSelectBox();
                 }}
-              >
-            <MaterialCommunityIcons name='plus-circle' size={30} color='black' />
-            </TouchableOpacity>
-
-            <ModalAll
-              isVisible={modalVisible}
-              hide={() => setModalVisible(false)}
-              value={newTask}
-              onChangeText={_handleTextChange}
-              onSubmitEditing={_addTask}
-            />
-            <IconButton type={images.delete}/>
+                >
+                <Image source = {allSelect? images.selected : images.unselected} style = {styles.icon}/>
+              </TouchableWithoutFeedback>
+              <TouchableOpacity
+                onPress={() => {
+                  setModalVisible(true);
+                  }}
+                >
+              <MaterialCommunityIcons name='plus-circle' size={30} color='black' />
+              </TouchableOpacity>
+              
+              <ModalAll
+                isVisible={modalVisible}
+                hide={() => setModalVisible(false)}
+                value={newTask}
+                onChangeText={_handleTextChange}
+                onSubmitEditing={_addTask}
+              />
+              <IconButton type={images.delete}/>
+              <SelectDropdown //https://www.npmjs.com/package/react-native-select-dropdown#onSelect
+                  data={["전체", "미완료", "완료"]}
+                  defaultValueByIndex={0}
+                  buttonStyle={{width: '30%', height: '80%', marginRight: 5, marginLeft: 20}}
+                  onSelect={(selectedItem, index) => {
+                    setFilterIndex(index);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item
+                  }}
+                />
           </View>
-
           <View style={styles.scrollView}>
-          {/**task 배열을 map해야할 자리 */}
-          <Tabs workTasks = {workTasks} lifeTasks = {lifeTasks}/>
+          <Tabs workTasks = {workTasks} lifeTasks = {lifeTasks} filterIndex={filterIndex}/>
       </View>
       <Text style={styles.header} onPress={()=> onShare(tasks)}>오늘 할 일 공유하기</Text>
       </SafeAreaView>
@@ -162,8 +177,10 @@ const styles = StyleSheet.create({
 //Top Icon 일렬로
 const topStyle = StyleSheet.create({
   container: {
+      width: '100%',
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'flex-end'
   },
   contents: {
       fontSize: 24,

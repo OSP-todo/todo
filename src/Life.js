@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import Task from './components/Task';
 
 const styles = StyleSheet.create({
@@ -15,10 +15,24 @@ const styles = StyleSheet.create({
 
 
 function Life(props) {
+  const [tasks, setTasks] = useState(props.lifeTasks);
+  const incompletedTasks = Object.values(props.lifeTasks).filter(item => item.completed==false);
+  const completedTasks = Object.values(props.lifeTasks).filter(item => item.completed==true);
+
+  useEffect(() => {
+    if(props.filterIndex==0){ //전체
+      setTasks(props.lifeTasks);
+    }else if(props.filterIndex==1){ //미완료
+      setTasks(incompletedTasks);
+    }else{ //완료
+      setTasks(completedTasks);
+    }  
+  }, [props.filterIndex]);
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
       <ScrollView style={styles.scrollView}>
-          {Object.values(props.lifeTasks)
+      {Object.values(tasks)
           .reverse()
           .map((item) => (
             <Task item={item} key={item.key}>{item.text}</Task>
