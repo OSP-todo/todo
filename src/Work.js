@@ -20,9 +20,7 @@ function Work(props) {
   const completedTasks = Object.values(props.workTasks).filter(item => item.completed==true);
 
   const _toggleTask = (id) => {
-    const currentTasks = Object.assign({}, tasks);
-    //currentTasks[id-1]['completed'] = !currentTasks[id-1]['completed'];
-    //id-1(key)로 하면 life부터 key가 바뀌기 때문에 id로 받아오는 걸로 수정해야함
+    const currentTasks = tasks.map(item => {if(item.id==id) item.completed = !item.completed; return item;})
     setTasks(currentTasks);
   };
 
@@ -41,7 +39,7 @@ function Work(props) {
       <ScrollView style={styles.scrollView}>
           {Object.values(tasks)
           .map((item) => (
-            <Task item={item} key={item.key} toggleTask={_toggleTask}>{item.text}</Task>
+            <Task item={item} toggleTask={_toggleTask}>{item.text}</Task>
           ))}
       </ScrollView>
     </View>
