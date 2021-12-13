@@ -27,7 +27,12 @@ function Work(props) {
         {Object.values(props.workTasks)
           .reverse()
           .map((item) => (
-            <Task item={item} key={item.id} toggleTask={props.toggleTask}>
+            <Task
+              item={item}
+              key={item.id}
+              toggleTask={props.toggleTask}
+              modalPopup={props.modalPopup}
+            >
               {item.text}
             </Task>
           ))}

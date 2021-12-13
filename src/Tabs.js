@@ -46,14 +46,22 @@ export default (props) => {
           options={{ headerShown: false }}
           name='WORK'
           children={() => (
-            <Work workTasks={props.workTasks} toggleTask={props.toggleTask} />
+            <Work
+              workTasks={props.workTasks}
+              toggleTask={props.toggleTask}
+              modalPopup={props.modalPopup}
+            />
           )}
         />
         <Tabs.Screen
           options={{ headerShown: false }}
           name='LIFE'
           children={() => (
-            <Life lifeTasks={props.lifeTasks} toggleTask={props.toggleTask} />
+            <Life
+              lifeTasks={props.lifeTasks}
+              toggleTask={props.toggleTask}
+              modalPopup={props.modalPopup}
+            />
           )}
         />
       </Tabs.Navigator>

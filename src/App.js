@@ -32,6 +32,9 @@ export default function App() {
     4: { id: '4', text: 'todo list 4', completed: false, WorkOrLife: 'Life' },
     5: { id: '5', text: 'todo list 5', completed: false, WorkOrLife: 'Life' },
   });
+  useEffect(() => {
+    console.log('hello');
+  }, [tasks]);
 
   //Task 배열에서 work랑 life를 분류해줌. add랑 delete할 때마다 얘도 상태 바꿔줘야할듯...?
   const [workTasks, setWorkTasks] = useState(
@@ -61,7 +64,7 @@ export default function App() {
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: newTask, completed: false },
+      [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: 'Work' },
     };
     setNewTask('');
     setTasks({ ...tasks, ...newTaskObject });
@@ -87,6 +90,19 @@ export default function App() {
 
   const _handleTextChange = (text) => {
     setNewTask(text);
+  };
+
+  const _modalPopup = () => {
+    console.log('modal pop up?');
+    setModalVisible(true);
+
+    <ModalAll
+      isVisible='true'
+      hide={() => setModalVisible(false)}
+      value={tasks}
+      onChangeText={_handleTextChange}
+      onSubmitEditing={_updateTask}
+    />;
   };
 
   return (
@@ -132,7 +148,7 @@ export default function App() {
       <View style={styles.scrollView}>
         {/**task 배열을 map해야할 자리 */}
 
-        {/* {Object.values(tasks)
+        {Object.values(tasks)
           .reverse()
           .map((item) => (
             <Task
@@ -141,8 +157,10 @@ export default function App() {
               deleteTask={_deleteTask}
               toggleTask={_toggleTask}
               updateTask={_updateTask}
+              modalPopup={_modalPopup}
             />
-          ))} */}
+          ))}
+        {console.log(tasks.text)}
 
         <Tabs
           workTasks={workTasks}
@@ -150,6 +168,7 @@ export default function App() {
           deleteTask={_deleteTask}
           toggleTask={_toggleTask}
           updateTask={_updateTask}
+          modalPopup={_modalPopup}
         />
       </View>
       <Text style={styles.header} onPress={() => onShare(tasks)}>

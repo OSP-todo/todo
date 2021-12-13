@@ -19,9 +19,9 @@ const ModalAll = (props) => {
           />
           <ModalDateInput text='Due Date : ' />
           <ModalCategInput text='Category : ' />
-          <ModalTextInput text='Image : ' />
+          {/* <ModalTextInput text='Image : ' />
           <ModalTextInput text='Location : ' />
-          <ModalTextInput text='Share : ' />
+          <ModalTextInput text='Share : ' /> */}
           <TouchableOpacity
             onPress={props.hide}
             style={{

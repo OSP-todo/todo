@@ -27,7 +27,12 @@ function Life(props) {
         {Object.values(props.lifeTasks)
           .reverse()
           .map((item) => (
-            <Task item={item} key={item.key} toggleTask={props.toggleTask}>
+            <Task
+              item={item}
+              key={item.id}
+              toggleTask={props.toggleTask}
+              modalPopup={props.modalPopup}
+            >
               {item.text}
             </Task>
           ))}
