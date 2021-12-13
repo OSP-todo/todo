@@ -62,13 +62,14 @@ export default function App() {
   };
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [isNew, setIsNew] = useState(true);
 
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
       [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: 'Work' },
     };
-    setNewTask('');
+    // setNewTask('');
     setTasks({ ...tasks, ...newTaskObject });
   };
 
@@ -96,6 +97,7 @@ export default function App() {
 
   const _modalPopup = (id) => {
     setModalVisible(true);
+    setIsNew(false);
     const currentTasks = Object.assign({}, tasks);
     setNewTask(currentTasks[id]['text']);
   };
@@ -127,6 +129,7 @@ export default function App() {
           onPress={() => {
             setModalVisible(true);
             setNewTask('');
+            setIsNew(true);
           }}
         >
           <MaterialCommunityIcons name='plus-circle' size={30} color='black' />
@@ -135,9 +138,10 @@ export default function App() {
         <ModalAll
           isVisible={modalVisible}
           hide={() => setModalVisible(false)}
+          isNew={isNew}
           value={newTask}
           onChangeText={_handleTextChange}
-          onSubmitEditing={_addTask}
+          onSubmitEditing={isNew ? _addTask : _updateTask}
         />
         <IconButton type={images.delete} />
       </View>

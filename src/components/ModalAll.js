@@ -31,7 +31,7 @@ const ModalAll = (props) => {
               backgroundColor: theme.itemBackground,
             }}
           >
-            <Text>Submit</Text>
+            <Text>{props.isNew ? 'submit' : 'update'}</Text>
           </TouchableOpacity>
         </View>
       </Modal>

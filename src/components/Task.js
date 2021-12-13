@@ -1,30 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { theme } from '../theme';
 import PropTypes from 'prop-types';
 import IconButton from './IconButton';
 import { images } from '../images';
 
-const Task = ({ item, deleteTask, toggleTask, modalPopup }) => {
+const Task = (props) => {
+  const [text, setText] = useState(props.item.text);
+  const _onSubmitEditing = () => {
+    const editedTask = Object.assign({}, item, { text });
+    updateTask(editedTask);
+  };
+
   return (
     <View style={taskStyle.container}>
       <IconButton type={images.unselected} />
       <IconButton
-        type={item.completed ? images.completed : images.uncompleted}
-        id={item.id}
-        onPressOut={toggleTask}
-        completed={item.completed}
+        type={props.item.completed ? images.completed : images.uncompleted}
+        id={props.item.id}
+        onPressOut={props.toggleTask}
+        completed={props.item.completed}
       />
       <Text
         style={[
           taskStyle.contents,
-          { color: item.completed ? theme.done : theme.text },
-          { textDecorationLine: item.completed ? 'line-through' : 'none' },
+          { color: props.item.completed ? theme.done : theme.text },
+          {
+            textDecorationLine: props.item.completed ? 'line-through' : 'none',
+          },
         ]}
       >
-        {item.text}
+        {props.item.text}
       </Text>
-      <IconButton type={images.update} id={item.id} onPressOut={modalPopup} />
+      <IconButton
+        type={images.update}
+        id={props.item.id}
+        onPressOut={props.modalPopup}
+        onSubmitEditing={_onSubmitEditing}
+      />
       {/* <IconButton type={images.delete} id={item.id} onPressOut={deleteTask} completed={item.completed} /> */}
     </View>
   );
