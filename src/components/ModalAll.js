@@ -5,30 +5,32 @@ import ModalDateInput from './ModalDateInput';
 import ModalCategInput from './ModalCategInput';
 import { theme } from '../theme';
 
-const ModalAll = ({
-  isVisible,
-  hide,
-  value,
-  onChangeText,
-  onSubmitEditing,
-}) => {
+const ModalAll = (props) => {
   return (
     <View>
-      <Modal visible={isVisible} transparent={true}>
+      <Modal visible={props.isVisible} transparent={true}>
         <View style={styles.modalView}>
           <Text style={styles.headerText}>To-Do Detail Info</Text>
           <ModalTextInput
             text='To do : '
-            value={value}
-            onChangeText={onChangeText}
-            onSubmitEditing={onSubmitEditing}
+            value={props.value}
+            onChangeText={props.onChangeText}
+            onSubmitEditing={props.onSubmitEditing}
           />
           <ModalDateInput text='Due Date : ' />
           <ModalCategInput text='Category : ' />
           <ModalTextInput text='Image : ' />
           <ModalTextInput text='Location : ' />
           <ModalTextInput text='Share : ' />
-          <TouchableOpacity onPress={hide} style={{ padding: 5, paddingHorizontal: 15, borderRadius: 10, backgroundColor: theme.itemBackground }}>
+          <TouchableOpacity
+            onPress={props.hide}
+            style={{
+              padding: 5,
+              paddingHorizontal: 15,
+              borderRadius: 10,
+              backgroundColor: theme.itemBackground,
+            }}
+          >
             <Text>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 30,
     margin: 10,
   },
 });

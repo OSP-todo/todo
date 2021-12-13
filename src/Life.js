@@ -13,20 +13,27 @@ const styles = StyleSheet.create({
   },
 });
 
-
 function Life(props) {
   return (
-    <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <ScrollView style={styles.scrollView}>
-          {Object.values(props.lifeTasks)
+        {Object.values(props.lifeTasks)
           .reverse()
           .map((item) => (
-            <Task item={item} key={item.key}>{item.text}</Task>
+            <Task item={item} key={item.key} toggleTask={props.toggleTask}>
+              {item.text}
+            </Task>
           ))}
       </ScrollView>
     </View>
   );
 }
-
 
 export default Life;

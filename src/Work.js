@@ -13,20 +13,27 @@ const styles = StyleSheet.create({
   },
 });
 
-
 function Work(props) {
   return (
-    <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <ScrollView style={styles.scrollView}>
-          {Object.values(props.workTasks)
+        {Object.values(props.workTasks)
           .reverse()
           .map((item) => (
-            <Task item={item} key={item.key}>{item.text}</Task>
+            <Task item={item} key={item.id} toggleTask={props.toggleTask}>
+              {item.text}
+            </Task>
           ))}
       </ScrollView>
     </View>
   );
 }
-
 
 export default Work;
