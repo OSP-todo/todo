@@ -24,7 +24,7 @@ const Task = ({ item, deleteTask, toggleTask, modalPopup }) => {
       >
         {item.text}
       </Text>
-      <IconButton type={images.update} onPressOut={modalPopup} />
+      <IconButton type={images.update} id={item.id} onPressOut={modalPopup} />
       {/* <IconButton type={images.delete} id={item.id} onPressOut={deleteTask} completed={item.completed} /> */}
     </View>
   );

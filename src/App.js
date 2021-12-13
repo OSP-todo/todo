@@ -32,9 +32,11 @@ export default function App() {
     4: { id: '4', text: 'todo list 4', completed: false, WorkOrLife: 'Life' },
     5: { id: '5', text: 'todo list 5', completed: false, WorkOrLife: 'Life' },
   });
-  useEffect(() => {
-    console.log('hello');
-  }, [tasks]);
+
+  //test
+  // useEffect(() => {
+  //   console.log('hello');
+  // }, [tasks]);
 
   //Task 배열에서 work랑 life를 분류해줌. add랑 delete할 때마다 얘도 상태 바꿔줘야할듯...?
   const [workTasks, setWorkTasks] = useState(
@@ -92,17 +94,10 @@ export default function App() {
     setNewTask(text);
   };
 
-  const _modalPopup = () => {
-    console.log('modal pop up?');
+  const _modalPopup = (id) => {
     setModalVisible(true);
-
-    <ModalAll
-      isVisible='true'
-      hide={() => setModalVisible(false)}
-      value={tasks}
-      onChangeText={_handleTextChange}
-      onSubmitEditing={_updateTask}
-    />;
+    const currentTasks = Object.assign({}, tasks);
+    setNewTask(currentTasks[id]['text']);
   };
 
   return (
@@ -127,9 +122,11 @@ export default function App() {
             style={styles.icon}
           />
         </TouchableWithoutFeedback>
+
         <TouchableOpacity
           onPress={() => {
             setModalVisible(true);
+            setNewTask('');
           }}
         >
           <MaterialCommunityIcons name='plus-circle' size={30} color='black' />
@@ -160,7 +157,6 @@ export default function App() {
               modalPopup={_modalPopup}
             />
           ))}
-        {console.log(tasks.text)}
 
         <Tabs
           workTasks={workTasks}
