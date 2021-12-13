@@ -67,10 +67,12 @@ export default function App() {
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: 'Work' },
+      [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: 'Life' },
     };
     // setNewTask('');
+    console.log(tasks);
     setTasks({ ...tasks, ...newTaskObject });
+    console.log(tasks);
   };
 
   const _deleteTask = (id) => {
@@ -149,7 +151,7 @@ export default function App() {
       <View style={styles.scrollView}>
         {/**task 배열을 map해야할 자리 */}
 
-        {Object.values(tasks)
+        {/* {Object.values(tasks)
           .reverse()
           .map((item) => (
             <Task
@@ -160,7 +162,7 @@ export default function App() {
               updateTask={_updateTask}
               modalPopup={_modalPopup}
             />
-          ))}
+          ))} */}
 
         <Tabs
           workTasks={workTasks}
