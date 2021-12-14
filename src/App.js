@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import ModalAll from './components/ModalAll';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Tabs from "./Tabs";
+import Tabs from './Tabs';
 import { images } from './images';
 import IconButton from './components/IconButton';
 import Rate from './components/Rate';
@@ -48,14 +48,17 @@ export default function App() {
   const [filterIndex, setFilterIndex] = useState(0); // 0. 1. 2
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [isNew, setIsNew] = useState(true);
 
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: newTask, completed: false },
+      [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: 'Life' },
     };
-    setNewTask('');
+    // setNewTask('');
+    console.log(tasks);
     setTasks({ ...tasks, ...newTaskObject });
+    console.log(tasks);
   };
 
   const _deleteTask = (id) => {
@@ -76,42 +79,56 @@ export default function App() {
     setNewTask(text);
   };
 
+  const _modalPopup = (id) => {
+    setModalVisible(true);
+    setIsNew(false);
+    const currentTasks = Object.assign({}, tasks);
+    setNewTask(currentTasks[id]['text']);
+  };
+
   return (
     <SafeAreaView style={viewStyles.container}>
-      <StatusBar barStyle="light-content" style={barStyles.statusbar}/>
+      <StatusBar barStyle='light-content' style={barStyles.statusbar} />
       <Text style={textStyles.title}>TODO List</Text>
-          <ShowDate/>
-          <View style={styles.workAndLife}>
-            <Rate text = {`WORK : ${ratio}%`} />
-            <Rate text = {`LIFE : ${100-ratio}%`} />
-          </View>
-          
-          {/**Top Icon */}
-            <View style={topStyle.container}>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  _allSelectBox();
-                }}
-                >
-                <Image source = {allSelect? images.selected : images.unselected} style = {styles.icon}/>
-              </TouchableWithoutFeedback>
-              <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(true);
-                  }}
-                >
-              <MaterialCommunityIcons name='plus-circle' size={30} color='black' />
-              </TouchableOpacity>
-              
-              <ModalAll
-                isVisible={modalVisible}
-                hide={() => setModalVisible(false)}
-                value={newTask}
-                onChangeText={_handleTextChange}
-                onSubmitEditing={_addTask}
-              />
-              <IconButton type={images.delete}/>
-              <SelectDropdown //https://www.npmjs.com/package/react-native-select-dropdown#onSelect
+      <ShowDate />
+      <View style={styles.workAndLife}>
+        <Rate text={`WORK : ${ratio}%`} />
+        <Rate text={`LIFE : ${100 - ratio}%`} />
+      </View>
+
+      {/**Top Icon */}
+      <View style={topStyle.container}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            _allSelectBox();
+          }}
+        >
+          <Image
+            source={allSelect ? images.selected : images.unselected}
+            style={styles.icon}
+          />
+        </TouchableWithoutFeedback>
+
+        <TouchableOpacity
+          onPress={() => {
+            setModalVisible(true);
+            setNewTask('');
+            setIsNew(true);
+          }}
+        >
+          <MaterialCommunityIcons name='plus-circle' size={30} color='black' />
+        </TouchableOpacity>
+
+        <ModalAll
+          isVisible={modalVisible}
+          hide={() => setModalVisible(false)}
+          isNew={isNew}
+          value={newTask}
+          onChangeText={_handleTextChange}
+          onSubmitEditing={isNew ? _addTask : _updateTask}
+        />
+        <IconButton type={images.delete} />
+        <SelectDropdown //https://www.npmjs.com/package/react-native-select-dropdown#onSelect
                   data={["전체", "미완료", "완료"]}
                   defaultValueByIndex={0}
                   buttonStyle={{width: '30%', height: '80%', marginRight: 5, marginLeft: 20}}
@@ -125,12 +142,38 @@ export default function App() {
                     return item
                   }}
                 />
-          </View>
-          <View style={styles.scrollView}>
-          <Tabs workTasks = {workTasks} lifeTasks = {lifeTasks} filterIndex={filterIndex}/>
       </View>
-      <Text style={styles.header} onPress={()=> onShare(tasks)}>오늘 할 일 공유하기</Text>
-      </SafeAreaView>
+
+      <View style={styles.scrollView}>
+        {/**task 배열을 map해야할 자리 */}
+
+        {/* {Object.values(tasks)
+          .reverse()
+          .map((item) => (
+            <Task
+              key={item.id}
+              item={item}
+              deleteTask={_deleteTask}
+              toggleTask={_toggleTask}
+              updateTask={_updateTask}
+              modalPopup={_modalPopup}
+            />
+          ))} */}
+
+        <Tabs
+          workTasks={workTasks}
+          lifeTasks={lifeTasks}
+          deleteTask={_deleteTask}
+          toggleTask={_toggleTask}
+          updateTask={_updateTask}
+          modalPopup={_modalPopup}
+          filterIndex={filterIndex}
+        />
+      </View>
+      <Text style={styles.header} onPress={() => onShare(tasks)}>
+        오늘 할 일 공유하기
+      </Text>
+    </SafeAreaView>
   );
 }
 
@@ -151,13 +194,13 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   workAndLife: {
-    width:'100%',
+    width: '100%',
     borderRadius: 10,
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight: 10,
     justifyContent: 'space-between',
-    marginLeft: 0
+    marginLeft: 0,
   },
   icon: {
     tintColor: theme.text,
@@ -167,8 +210,8 @@ const styles = StyleSheet.create({
   },
   bar: {
     width: '60%',
-    backgroundColor: theme.itemBackground
-  }
+    backgroundColor: theme.itemBackground,
+  },
 });
 
 //Top Icon 일렬로
@@ -180,7 +223,7 @@ const topStyle = StyleSheet.create({
       justifyContent: 'flex-end'
   },
   contents: {
-      fontSize: 24,
-      color: theme.text,
+    fontSize: 24,
+    color: theme.text,
   },
 });

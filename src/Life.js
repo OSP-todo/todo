@@ -36,16 +36,30 @@ function life(props) {
   }, [props.filterIndex]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <ScrollView style={styles.scrollView}>
-          {Object.values(tasks)
+        {Object.values(tasks)
+          .reverse()
           .map((item) => (
-            <Task item={item} toggleTask={_toggleTask}>{item.text}</Task>
+            <Task
+              item={item}
+              key={item.id}
+              toggleTask={props.toggleTask}
+              modalPopup={props.modalPopup}
+            >
+              {item.text}
+            </Task>
           ))}
       </ScrollView>
     </View>
   );
 }
 
-
-export default life;
+export default Life;
