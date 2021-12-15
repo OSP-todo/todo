@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import Work from './Work';
 import Life from './Life';
+import AllTasks from './AllTasks';
 import { theme } from './theme';
 
 const Tabs = createBottomTabNavigator();
@@ -15,11 +16,13 @@ export default (props) => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             let iconName;
-            if (route.name === 'WORK') {
+            if (route.name === 'AllTasks') {
+              iconName = 'format-list-numbered';
+            } else if (route.name === 'WORK') {
               iconName = 'work';
             } else if (route.name === 'LIFE') {
               iconName = 'nightlife';
-            }
+            } 
             return (
               <MaterialIcons
                 name={iconName}
@@ -44,13 +47,27 @@ export default (props) => {
       >
         <Tabs.Screen
           options={{ headerShown: false }}
-          name='WORK'
+          name='AllTasks'
           children={() => (
-            <Work
-              workTasks={props.workTasks}
+            <AllTasks
+              tasks={props.tasks}
               toggleTask={props.toggleTask}
               modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
+              deleteTask={props.deleteTask}
+            />
+          )}
+        />
+        <Tabs.Screen
+          options={{ headerShown: false }}
+          name='WORK'
+          children={() => (
+            <Work
+              tasks={props.tasks}
+              toggleTask={props.toggleTask}
+              modalPopup={props.modalPopup}
+              filterIndex={props.filterIndex}
+              deleteTask={props.deleteTask}
             />
           )}
         />
@@ -59,10 +76,11 @@ export default (props) => {
           name='LIFE'
           children={() => (
             <Life
-              lifeTasks={props.lifeTasks}
+              tasks={props.tasks}
               toggleTask={props.toggleTask}
               modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
+              deleteTask={props.deleteTask}
             />
           )}
         />

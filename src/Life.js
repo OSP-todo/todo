@@ -14,24 +14,29 @@ const styles = StyleSheet.create({
 });
 
 
-function life(props) {
-  const [tasks, setTasks] = useState(props.lifeTasks);
-  const incompletedTasks = Object.values(props.lifeTasks).filter(item => item.completed==false);
-  const completedTasks = Object.values(props.lifeTasks).filter(item => item.completed==true);
+function Life (props) {
+  var lifeTasks = Object.values(props.tasks).filter(item => item.WorkOrLife=='Life');
+  const [filteredTasks, setFilteredTasks] = useState(lifeTasks);
+  
+  useEffect(() => {
+    lifeTasks = Object.values(props.tasks).filter(item => item.WorkOrLife=='Life');
 
-  const _toggleTask = (id) => {
-    const currentTasks = tasks.map(item => {if(item.id==id) item.completed = !item.completed; return item;})
-    setTasks(currentTasks);
-  };
-
+    //메뉴 설정된 상태에서 추가해도 자연스럽게
+    setFilteredTasks(lifeTasks);
+    if(props.filterIndex==1){ //미완료
+      setFilteredTasks(Object.values(filteredTasks).filter(item => item.completed==false));
+    }else if(props.filterIndex==2){ //완료
+      setFilteredTasks(Object.values(filteredTasks).filter(item => item.completed==true));
+    } 
+  }, [props.tasks]);
 
   useEffect(() => {
     if(props.filterIndex==0){ //전체
-      setTasks(props.lifeTasks);
+      setFilteredTasks(lifeTasks);
     }else if(props.filterIndex==1){ //미완료
-      setTasks(incompletedTasks);
+      setFilteredTasks(Object.values(lifeTasks).filter(item => item.completed==false));
     }else{ //완료
-      setTasks(completedTasks);
+      setFilteredTasks(Object.values(lifeTasks).filter(item => item.completed==true));
     }  
   }, [props.filterIndex]);
 
@@ -45,7 +50,7 @@ function life(props) {
       }}
     >
       <ScrollView style={styles.scrollView}>
-        {Object.values(tasks)
+        {Object.values(filteredTasks)
           .reverse()
           .map((item) => (
             <Task
@@ -53,6 +58,8 @@ function life(props) {
               key={item.id}
               toggleTask={props.toggleTask}
               modalPopup={props.modalPopup}
+              deleteTask={props.deleteTask}
+
             >
               {item.text}
             </Task>

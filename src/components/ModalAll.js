@@ -6,6 +6,11 @@ import ModalCategInput from './ModalCategInput';
 import { theme } from '../theme';
 
 const ModalAll = (props) => {
+  const _taskSubmit = () => {
+    props.hide(); //모달 숨기기
+    props.onSubmitEditing(); //새로운 task 내용 보내기
+    props.submitCategory('Life');
+  }
   return (
     <View>
       <Modal visible={props.isVisible} transparent={true}>
@@ -18,12 +23,12 @@ const ModalAll = (props) => {
             onSubmitEditing={props.onSubmitEditing}
           />
           <ModalDateInput text='Due Date : ' />
-          <ModalCategInput text='Category : ' />
+          <ModalCategInput text='Category : ' submitCategory={props.submitCategory}/>
           {/* <ModalTextInput text='Image : ' />
           <ModalTextInput text='Location : ' />
           <ModalTextInput text='Share : ' /> */}
           <TouchableOpacity
-            onPress={props.hide}
+            onPress={_taskSubmit}
             style={{
               padding: 5,
               paddingHorizontal: 15,
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    marginTop: 120,
+    marginTop: 160,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,

@@ -13,32 +13,25 @@ const styles = StyleSheet.create({
   },
 });
 
-function Work(props) {
-  var workTasks = Object.values(props.tasks).filter(item => item.WorkOrLife=='Work');
-  const [filteredTasks, setFilteredTasks] = useState(workTasks);
-  
-  useEffect(() => {
-    workTasks = Object.values(props.tasks).filter(item => item.WorkOrLife=='Work');
-
-    //메뉴 설정된 상태에서 추가해도 자연스럽게
-    setFilteredTasks(workTasks);
-    if(props.filterIndex==1){ //미완료
-      setFilteredTasks(Object.values(filteredTasks).filter(item => item.completed==false));
-    }else if(props.filterIndex==2){ //완료
-      setFilteredTasks(Object.values(filteredTasks).filter(item => item.completed==true));
-    } 
-  }, [props.tasks]);
+function AllTasks(props) {
+  const [tasks, setTasks] = useState(props.tasks);
+  const incompletedTasks = Object.values(props.tasks).filter(item => item.completed==false);
+  const completedTasks = Object.values(props.tasks).filter(item => item.completed==true);
 
   useEffect(() => {
     if(props.filterIndex==0){ //전체
-      setFilteredTasks(workTasks);
+      setTasks(props.tasks);
     }else if(props.filterIndex==1){ //미완료
-      setFilteredTasks(Object.values(workTasks).filter(item => item.completed==false));
+      setTasks(incompletedTasks);
     }else{ //완료
-      setFilteredTasks(Object.values(workTasks).filter(item => item.completed==true));
+      setTasks(completedTasks);
     }  
   }, [props.filterIndex]);
 
+  useEffect(() => {
+    setTasks(props.tasks);
+  }, [props.tasks]);
+  
   return (
     <View
       style={{
@@ -49,7 +42,7 @@ function Work(props) {
       }}
     >
       <ScrollView style={styles.scrollView}>
-        {Object.values(filteredTasks)
+        {Object.values(tasks)
           .reverse()
           .map((item) => (
             <Task
@@ -67,4 +60,4 @@ function Work(props) {
   );
 }
 
-export default Work;
+export default AllTasks;

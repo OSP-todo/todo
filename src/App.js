@@ -26,20 +26,27 @@ export default function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState({
     1: { id: '1', text: 'todo list 1', completed: true, WorkOrLife : 'Work' },
-    2: { id: '2', text: 'todo list 2', completed: false, WorkOrLife : 'Work' },
-    3: { id: '3', text: 'todo list 3', completed: false, WorkOrLife : 'Work' },
-    4: { id: '4', text: 'todo list 4', completed: false, WorkOrLife : 'Life' },
-    5: { id: '5', text: 'todo list 5', completed: false, WorkOrLife : 'Life' },
+    2: { id: '5', text: 'todo list 2', completed: false, WorkOrLife : 'Life' },
   });  
-  
-  const workTasks = Object.values(tasks).filter(item => item.WorkOrLife=='Work');
-  const lifeTasks = Object.values(tasks).filter(item => item.WorkOrLife=='Life');
-  const ratio = (Object.values(workTasks).length/Object.values(tasks).length)*100;
+  const [category, setCategory] = useState('Work');
+
+  //work and life ratio
+  const [workRatio, setWorkRatio] = useState(0); //시작은 0이니까
+  const [lifeRatio, setLifeRatio] = useState(0);
+  const calculateRatio = (tasks) => {
+    var work = Object.values(tasks).filter(item => item.WorkOrLife=='Work');
+    const ratio = ((Object.values(work).length/Object.values(tasks).length)*100).toFixed(0);
+    setWorkRatio(ratio);
+    setLifeRatio(100 - ratio);
+  }
+  useEffect(() =>{
+    calculateRatio(tasks);
+  }, [tasks]);
   
   //All Select Icon 변경
   const [allSelect, setAllSelect] = useState(false);
   const _allSelectBox = () => { // 클릭시 일어나는 변화
-    console.log(lifeTasks);
+    console.log(workTasks); //디버깅용
     setAllSelect(!allSelect);
     //여기에 체크아이콘을 전부 바꿔주는 함수가
   };
@@ -53,12 +60,10 @@ export default function App() {
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: 'Life' },
-    };
-    // setNewTask('');
-    console.log(tasks);
+      [ID]: { id: ID, text: "Life되냐", completed: false, WorkOrLife: 'Life' },
+    };    
     setTasks({ ...tasks, ...newTaskObject });
-    console.log(tasks);
+    calculateRatio(tasks);
   };
 
   const _deleteTask = (id) => {
@@ -67,12 +72,20 @@ export default function App() {
     setTasks(currentTasks);
   };
 
-
+  const _toggleTask = (id) => {
+    const currentTasks = Object.assign({}, tasks);
+    currentTasks[id]['completed'] = !currentTasks[id]['completed'];
+    setTasks(currentTasks);
+  };
 
   const _updateTask = (item) => {
     const currentTasks = Object.assign({}, tasks);
     currentTasks[item.id] = item;
     setTasks(currentTasks);
+  };
+
+  const _submitCategory = (value) => {
+    setCategory(value);
   };
 
   const _handleTextChange = (text) => {
@@ -92,8 +105,8 @@ export default function App() {
       <Text style={textStyles.title}>TODO List</Text>
       <ShowDate />
       <View style={styles.workAndLife}>
-        <Rate text={`WORK : ${ratio}%`} />
-        <Rate text={`LIFE : ${100 - ratio}%`} />
+        <Rate text={`WORK : ${workRatio}%`} />
+        <Rate text={`LIFE : ${lifeRatio}%`} />
       </View>
 
       {/**Top Icon */}
@@ -126,9 +139,10 @@ export default function App() {
           value={newTask}
           onChangeText={_handleTextChange}
           onSubmitEditing={isNew ? _addTask : _updateTask}
+          submitCategory={_submitCategory}
         />
         <IconButton type={images.delete} />
-        <SelectDropdown //https://www.npmjs.com/package/react-native-select-dropdown#onSelect
+        <SelectDropdown
                   data={["전체", "미완료", "완료"]}
                   defaultValueByIndex={0}
                   buttonStyle={{width: '30%', height: '80%', marginRight: 5, marginLeft: 20}}
@@ -145,24 +159,8 @@ export default function App() {
       </View>
 
       <View style={styles.scrollView}>
-        {/**task 배열을 map해야할 자리 */}
-
-        {/* {Object.values(tasks)
-          .reverse()
-          .map((item) => (
-            <Task
-              key={item.id}
-              item={item}
-              deleteTask={_deleteTask}
-              toggleTask={_toggleTask}
-              updateTask={_updateTask}
-              modalPopup={_modalPopup}
-            />
-          ))} */}
-
         <Tabs
-          workTasks={workTasks}
-          lifeTasks={lifeTasks}
+          tasks={tasks}
           deleteTask={_deleteTask}
           toggleTask={_toggleTask}
           updateTask={_updateTask}
