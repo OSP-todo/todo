@@ -27,17 +27,32 @@ const ModalAll = (props) => {
           {/* <ModalTextInput text='Image : ' />
           <ModalTextInput text='Location : ' />
           <ModalTextInput text='Share : ' /> */}
-          <TouchableOpacity
-            onPress={_taskSubmit}
-            style={{
-              padding: 5,
-              paddingHorizontal: 15,
-              borderRadius: 10,
-              backgroundColor: theme.itemBackground,
-            }}
-          >
-            <Text>{props.isNew ? 'submit' : 'update'}</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonStyle}>
+            <TouchableOpacity
+              onPress={_taskSubmit}
+              style={{
+                padding: 5,
+                margin: 5,
+                paddingHorizontal: 15,
+                borderRadius: 10,
+                backgroundColor: theme.itemBackground,
+              }}
+            >
+              <Text>{props.isNew ? 'submit' : 'update'}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.hide()}
+              style={{
+                padding: 5,
+                margin: 5,
+                paddingHorizontal: 15,
+                borderRadius: 10,
+                backgroundColor: "#F0A96C",
+              }}
+            >
+              <Text>취소</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </View>
@@ -71,6 +86,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     margin: 10,
   },
+  buttonStyle: {
+    flexDirection: "row",
+    alignItems: "center"
+  }
 });
 
 export default ModalAll;
