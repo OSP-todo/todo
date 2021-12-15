@@ -21,6 +21,7 @@ import {viewStyles, textStyles, barStyles} from './styles';
 import onShare from './components/Share';
 import ShowDate from './components/ShowDate';
 import SelectDropdown from 'react-native-select-dropdown'
+import ProgressBar from 'react-native-progress/Bar';
 
 export default function App() {
   const [newTask, setNewTask] = useState('');
@@ -132,11 +133,12 @@ export default function App() {
   return (
     <SafeAreaView style={viewStyles.container}>
       <StatusBar barStyle='light-content' style={barStyles.statusbar} />
-      <Text style={textStyles.title}>TODO List</Text>
+      <Text style={textStyles.title}>TODO LIST</Text>
       <ShowDate />
       <View style={styles.workAndLife}>
-        <Rate text={`WORK : ${workRatio}%`} />
-        <Rate text={`LIFE : ${lifeRatio}%`} />
+        <Rate text={`WORK ${workRatio}%`} />
+        <ProgressBar borderColor={'rgba(0,0,0,0)'} progress={workRatio/100} height={13} width={180} color={'#F0A96C'} unfilledColor={'#CCCCFF'}/>
+        <Rate text={`LIFE ${lifeRatio}%`} />
       </View>
 
       {/**Top Icon */}
@@ -223,22 +225,18 @@ const styles = StyleSheet.create({
   },
   workAndLife: {
     width: '100%',
-    borderRadius: 10,
     flexDirection: 'row',
+    alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
     justifyContent: 'space-between',
-    marginLeft: 0,
+    marginBottom: 5
   },
   icon: {
     tintColor: theme.text,
     width: 30,
     height: 30,
     margin: 10,
-  },
-  bar: {
-    width: '60%',
-    backgroundColor: theme.itemBackground,
   },
 });
 

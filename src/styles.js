@@ -13,11 +13,11 @@ export const viewStyles = StyleSheet.create({
 
 export const textStyles = StyleSheet.create({
     title: {
-        fontSize: 40,
+        fontSize: 35,
         fontWeight: '600',
         color: theme.main,
         alignItems: 'flex-start',
-        marginTop: 0,
+        marginVertical: 10,
         marginLeft: 0,
     },
 });

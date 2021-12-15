@@ -180,7 +180,7 @@ Date.prototype.format = function (f) {
                 decreaseDate(topDate);}}>
               <Image source={images.arrowleft} style={dateStyle.icon}/>
             </TouchableOpacity>
-            <Text style={dateStyle.contents}>        {topDate}</Text>
+            <Text style={dateStyle.contents}>     {topDate}</Text>
             <TouchableOpacity onPress={()=>{
                 increaseDate(topDate);}}>
             <Image source={images.arrowright} style={dateStyle.icon}/>
@@ -196,7 +196,6 @@ const dateStyle = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         padding: 5,
-        marginTop: 3,
         marginLeft: 0,
     },
 
@@ -209,6 +208,7 @@ const dateStyle = StyleSheet.create({
         tintColor: theme.text,
         width: 30,
         height: 30,
-        margin: 10,
+        marginVertical: 7,
+        marginHorizontal: 20
     }
 });
