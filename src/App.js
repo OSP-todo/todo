@@ -43,11 +43,16 @@ export default function App() {
     calculateRatio(tasks);
   }, [tasks]);
   
-  //All Select Icon 변경
+  //All Select
   const [allSelect, setAllSelect] = useState(false);
   const _allSelectBox = () => { // 클릭시 일어나는 변화
     setAllSelect(!allSelect);
-    //여기에 체크아이콘을 전부 바꿔주는 함수가
+    const currentTasks = Object.assign({}, tasks);
+    if(allSelect===false) //useEffect없이 해서 false일때 true로 만들어야함
+      Object.values(currentTasks).map((item) => item.selected = true);
+    else
+      Object.values(currentTasks).map((item) => item.selected = false);
+    setTasks(currentTasks);
   };
 
   //filtering (드롭다운 메뉴에서 메뉴 선택)
