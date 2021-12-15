@@ -14,6 +14,16 @@ export default (props) => {
     <NavigationContainer>
       <Tabs.Navigator
         screenOptions={({ route }) => ({
+          tabBarInactiveBackgroundColor: 'rgba(1,1,1,0.02)',
+          tabBarIconStyle: {
+            marginTop: 5,
+          },
+          tabBarLabelStyle: {
+            fontSize: 10,
+            marginBottom: 5,
+          },
+          tabBarActiveTintColor: theme.itemBackground,
+          tabBarInactiveTintColor: 'gray',
           tabBarIcon: ({ focused }) => {
             let iconName;
             if (route.name === 'AllTasks') {
@@ -32,18 +42,6 @@ export default (props) => {
             );
           },
         })}
-        tabBarOptions={{
-          inactiveBackgroundColor: 'rgba(1,1,1,0.02)',
-          iconStyle: {
-            marginTop: 5,
-          },
-          labelStyle: {
-            fontSize: 10,
-            marginBottom: 5,
-          },
-          activeTintColor: theme.itemBackground,
-          inactiveTintColor: 'gray',
-        }}
       >
         <Tabs.Screen
           options={{ headerShown: false }}
