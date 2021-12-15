@@ -54,6 +54,7 @@ const taskStyle = StyleSheet.create({
   contents: {
     flex: 1,
     fontSize: 20,
+    marginLeft: 10,
     color: theme.text,
   },
 });

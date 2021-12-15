@@ -31,7 +31,8 @@ const iconStyle = StyleSheet.create({
     tintColor: theme.text,
     width: 30,
     height: 30,
-    margin: 10,
+    marginLeft: 10,
+    marginVertical: 10
   },
 });
 
