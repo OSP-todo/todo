@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
 const ModalCategInput = ({ text, submitCategory }) => {
   const [checked, setChecked] = useState('Work');
+
+  useEffect(() => {
+    submitCategory(checked);
+  },[checked]);
+
   return (
     <View style={styles.container}>
       <Text>{text}</Text>
@@ -12,13 +17,13 @@ const ModalCategInput = ({ text, submitCategory }) => {
         <RadioButton
           value='Work'
           status={checked === 'Work' ? 'checked' : 'unchecked'}
-          onPress={() => {setChecked('Work');}}
+          onPress={() => setChecked('Work')}
         />
         <Text>Life</Text>
         <RadioButton
           value='Life'
           status={checked === 'Life' ? 'checked' : 'unchecked'}
-          onPress={() => {setChecked('Life');}}
+          onPress={() => setChecked('Life')}
         />
       </View>
     </View>

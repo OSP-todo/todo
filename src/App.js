@@ -46,12 +46,11 @@ export default function App() {
   //All Select Icon 변경
   const [allSelect, setAllSelect] = useState(false);
   const _allSelectBox = () => { // 클릭시 일어나는 변화
-    console.log(workTasks); //디버깅용
     setAllSelect(!allSelect);
     //여기에 체크아이콘을 전부 바꿔주는 함수가
   };
 
-  //filtering (드롭다운 메뉴에서 메뉴 선택. App.js에선 선택된 메뉴 인덱스를 보내주기만 하고 필터링은 Work & Life에서 진행한다))
+  //filtering (드롭다운 메뉴에서 메뉴 선택)
   const [filterIndex, setFilterIndex] = useState(0); // 0. 1. 2
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -60,10 +59,10 @@ export default function App() {
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: "Life되냐", completed: false, WorkOrLife: 'Life' },
-    };    
+      [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: category },
+    };
     setTasks({ ...tasks, ...newTaskObject });
-    calculateRatio(tasks);
+    calculateRatio(tasks); //비율 계산 
   };
 
   const _deleteTask = (id) => {
@@ -84,7 +83,7 @@ export default function App() {
     setTasks(currentTasks);
   };
 
-  const _submitCategory = (value) => {
+  const _submitCategory = (value) => { //카테고리 설정
     setCategory(value);
   };
 
@@ -143,19 +142,19 @@ export default function App() {
         />
         <IconButton type={images.delete} />
         <SelectDropdown
-                  data={["전체", "미완료", "완료"]}
-                  defaultValueByIndex={0}
-                  buttonStyle={{width: '30%', height: '80%', marginRight: 5, marginLeft: 20}}
-                  onSelect={(selectedItem, index) => {
-                    setFilterIndex(index);
-                  }}
-                  buttonTextAfterSelection={(selectedItem, index) => {
-                    return selectedItem
-                  }}
-                  rowTextForSelection={(item, index) => {
-                    return item
-                  }}
-                />
+            data={["전체", "미완료", "완료"]}
+            defaultValueByIndex={0}
+            buttonStyle={{width: '30%', height: '80%', marginRight: 5, marginLeft: 20}}
+            onSelect={(selectedItem, index) => {
+              setFilterIndex(index);
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem
+            }}
+            rowTextForSelection={(item, index) => {
+              return item
+            }}
+        />
       </View>
 
       <View style={styles.scrollView}>
