@@ -52,7 +52,6 @@ export default (props) => {
               toggleTask={props.toggleTask}
               modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
-              deleteTask={props.deleteTask}
               selectTask={props.selectTask}
             />
           )}
@@ -66,7 +65,6 @@ export default (props) => {
               toggleTask={props.toggleTask}
               modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
-              deleteTask={props.deleteTask}
               selectTask={props.selectTask}
             />
           )}
@@ -80,7 +78,6 @@ export default (props) => {
               toggleTask={props.toggleTask}
               modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
-              deleteTask={props.deleteTask}
               selectTask={props.selectTask}
             />
           )}

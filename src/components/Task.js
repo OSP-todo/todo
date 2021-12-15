@@ -43,7 +43,6 @@ const Task = (props) => {
         onPressOut={props.modalPopup}
         onSubmitEditing={_onSubmitEditing}
       />
-      {/* <IconButton type={images.delete} id={item.id} onPressOut={deleteTask} completed={item.completed} /> */}
     </View>
   );
 };
@@ -68,8 +67,8 @@ const taskStyle = StyleSheet.create({
 
 Task.propTypes = {
   item: PropTypes.object.isRequired,
-  deleteTask: PropTypes.func.isRequired,
   toggleTask: PropTypes.func.isRequired,
+  selectTask: PropTypes.func.isRequired,
 };
 
 export default Task;

@@ -35,9 +35,15 @@ export default function App() {
   const [lifeRatio, setLifeRatio] = useState(0);
   const calculateRatio = (tasks) => {
     var work = Object.values(tasks).filter(item => item.WorkOrLife=='Work');
-    const ratio = ((Object.values(work).length/Object.values(tasks).length)*100).toFixed(0);
-    setWorkRatio(ratio);
-    setLifeRatio(100 - ratio);
+    if(Object.values(tasks).length != 0){
+      const ratio = ((Object.values(work).length/Object.values(tasks).length)*100).toFixed(0);
+      setWorkRatio(ratio);
+      setLifeRatio(100 - ratio);
+    }
+    else { //예외 처리
+      setWorkRatio(0);
+      setLifeRatio(0);
+    }
   }
   useEffect(() =>{
     calculateRatio(tasks);
@@ -77,9 +83,12 @@ export default function App() {
     setTasks(currentTasks);
   };
   
-  const _deleteTask = (id) => {
+  const _deleteTask = () => {
     const currentTasks = Object.assign({}, tasks);
-    delete currentTasks[id];
+    Object.values(currentTasks).map((item) => {
+      if(item.selected == true)
+        delete currentTasks[item.id];
+    });
     setTasks(currentTasks);
   };
 
@@ -153,7 +162,7 @@ export default function App() {
           onSubmitEditing={isNew ? _addTask : _updateTask}
           submitCategory={_submitCategory}
         />
-        <IconButton type={images.delete} />
+        <IconButton onPressOut={_deleteTask} type={images.delete} />
         <SelectDropdown
             data={["전체", "미완료", "완료"]}
             defaultValueByIndex={0}
@@ -173,7 +182,6 @@ export default function App() {
       <View style={styles.scrollView}>
         <Tabs
           tasks={tasks}
-          deleteTask={_deleteTask}
           selectTask={_selectTask}
           toggleTask={_toggleTask}
           updateTask={_updateTask}
