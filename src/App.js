@@ -25,8 +25,8 @@ import SelectDropdown from 'react-native-select-dropdown'
 export default function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState({
-    1: { id: '1', text: 'todo list 1', completed: true, WorkOrLife : 'Work' },
-    2: { id: '5', text: 'todo list 2', completed: false, WorkOrLife : 'Life' },
+    1: { id: '1', text: 'todo list 1', selected: false, completed: true, WorkOrLife : 'Work' },
+    2: { id: '2', text: 'todo list 2', selected: false, completed: false, WorkOrLife : 'Life' },
   });  
   const [category, setCategory] = useState('Work');
 
@@ -59,12 +59,19 @@ export default function App() {
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: newTask, completed: false, WorkOrLife: category },
+      [ID]: { id: ID, text: newTask, selected: false, completed: false, WorkOrLife: category },
     };
     setTasks({ ...tasks, ...newTaskObject });
     calculateRatio(tasks); //비율 계산 
   };
-
+  
+  //삭제를 위한 셀렉트
+  const _selectTask = (id) => {
+    const currentTasks = Object.assign({}, tasks);
+    currentTasks[id]['selected'] = !currentTasks[id]['selected'];
+    setTasks(currentTasks);
+  };
+  
   const _deleteTask = (id) => {
     const currentTasks = Object.assign({}, tasks);
     delete currentTasks[id];
@@ -76,6 +83,7 @@ export default function App() {
     currentTasks[id]['completed'] = !currentTasks[id]['completed'];
     setTasks(currentTasks);
   };
+
 
   const _updateTask = (item) => {
     const currentTasks = Object.assign({}, tasks);
@@ -161,6 +169,7 @@ export default function App() {
         <Tabs
           tasks={tasks}
           deleteTask={_deleteTask}
+          selectTask={_selectTask}
           toggleTask={_toggleTask}
           updateTask={_updateTask}
           modalPopup={_modalPopup}

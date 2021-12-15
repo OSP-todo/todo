@@ -14,7 +14,12 @@ const Task = (props) => {
 
   return (
     <View style={taskStyle.container}>
-      <IconButton type={images.unselected} />
+      <IconButton 
+        type={props.item.selected ? images.selected : images.unselected}
+        id={props.item.id}
+        onPressOut={props.selectTask}
+        selected={props.item.selected}
+      />
       <IconButton
         type={props.item.completed ? images.completed : images.uncompleted}
         id={props.item.id}

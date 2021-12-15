@@ -58,6 +58,7 @@ function Work(props) {
               toggleTask={props.toggleTask}
               modalPopup={props.modalPopup}
               deleteTask={props.deleteTask}
+              selectTask={props.selectTask}
             >
               {item.text}
             </Task>
