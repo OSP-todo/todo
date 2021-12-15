@@ -111,7 +111,6 @@ export default function App() {
   };
   //모달에서 update버튼 눌렀을 때
   const _updateTask = () => {
-    console.log(id);
     const currentTasks = Object.assign({}, tasks);
     Object.values(currentTasks).map((element) => {
       if(element.id == id){
