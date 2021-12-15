@@ -98,10 +98,27 @@ export default function App() {
     setTasks(currentTasks);
   };
 
+  //update
+  const [id, setId] = useState(0);
 
-  const _updateTask = (item) => {
+  //연필 모양 눌렀을 때
+  const _modalPopup = (item) => {
+    setModalVisible(true);
+    setIsNew(false);
     const currentTasks = Object.assign({}, tasks);
-    currentTasks[item.id] = item;
+    setNewTask(currentTasks[item.id]['text']);
+    setId(item.id);
+  };
+  //모달에서 update버튼 눌렀을 때
+  const _updateTask = () => {
+    console.log(id);
+    const currentTasks = Object.assign({}, tasks);
+    Object.values(currentTasks).map((element) => {
+      if(element.id == id){
+        currentTasks[id]['text'] = newTask;
+        currentTasks[id]['WorkOrLife'] = category;
+      }
+    });
     setTasks(currentTasks);
   };
 
@@ -111,13 +128,6 @@ export default function App() {
 
   const _handleTextChange = (text) => {
     setNewTask(text);
-  };
-
-  const _modalPopup = (id) => {
-    setModalVisible(true);
-    setIsNew(false);
-    const currentTasks = Object.assign({}, tasks);
-    setNewTask(currentTasks[id]['text']);
   };
 
   return (
@@ -185,8 +195,8 @@ export default function App() {
           selectTask={_selectTask}
           toggleTask={_toggleTask}
           updateTask={_updateTask}
-          modalPopup={_modalPopup}
           filterIndex={filterIndex}
+          modalPopup={_modalPopup}
         />
       </View>
       <Text style={styles.header} onPress={() => onShare(tasks)}>

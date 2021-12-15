@@ -6,12 +6,6 @@ import IconButton from './IconButton';
 import { images } from '../images';
 
 const Task = (props) => {
-  const [text, setText] = useState(props.item.text);
-  const _onSubmitEditing = () => {
-    const editedTask = Object.assign({}, item, { text });
-    updateTask(editedTask);
-  };
-
   return (
     <View style={taskStyle.container}>
       <IconButton 
@@ -40,8 +34,7 @@ const Task = (props) => {
       <IconButton
         type={images.update}
         id={props.item.id}
-        onPressOut={props.modalPopup}
-        onSubmitEditing={_onSubmitEditing}
+        onPressOut={() => props.modalPopup(props.item)}
       />
     </View>
   );

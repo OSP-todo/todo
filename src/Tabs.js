@@ -50,9 +50,10 @@ export default (props) => {
             <AllTasks
               tasks={props.tasks}
               toggleTask={props.toggleTask}
-              modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
               selectTask={props.selectTask}
+              updateTask={props.updateTask}
+              modalPopup={props.modalPopup}
             />
           )}
         />
@@ -63,9 +64,10 @@ export default (props) => {
             <Work
               tasks={props.tasks}
               toggleTask={props.toggleTask}
-              modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
               selectTask={props.selectTask}
+              updateTask={props.updateTask}
+              modalPopup={props.modalPopup}
             />
           )}
         />
@@ -76,9 +78,10 @@ export default (props) => {
             <Life
               tasks={props.tasks}
               toggleTask={props.toggleTask}
-              modalPopup={props.modalPopup}
               filterIndex={props.filterIndex}
               selectTask={props.selectTask}
+              updateTask={props.updateTask}
+              modalPopup={props.modalPopup}
             />
           )}
         />
