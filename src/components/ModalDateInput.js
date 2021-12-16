@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -66,9 +66,17 @@ Number.prototype.zf = function (len) {
   return this.toString().zf(len);
 };
 
-const ModalDateInput = ({ text }) => {
+const ModalDateInput = ({ text, submitDueDate }) => {
+  //오늘 날짜가 기본으로 뜨도록
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = (today.getMonth()+1);
+  var date = today.getDate();
+  if(month < 10) month = '0' + month;
+  if(date < 10) date = '0' + date;
+  const [dateText, onChangeDateText] = useState(year + "/" + month  + "/" + date);
+  
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-  const [dateText, onChangeDateText] = useState('눌러주세요');
 
   const showDatePicker = () => {
     setDatePickerVisible(true);
@@ -83,6 +91,10 @@ const ModalDateInput = ({ text }) => {
     hideDatePicker();
     onChangeDateText(date.format('yyyy/MM/dd'));
   };
+
+  useEffect(() => {
+    submitDueDate(dateText);
+  },[dateText]);
 
   return (
     <View style={styles.container}>

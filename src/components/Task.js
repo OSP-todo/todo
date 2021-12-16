@@ -31,6 +31,7 @@ const Task = (props) => {
       >
         {props.item.text}
       </Text>
+      <Text>{props.item.dueDate}</Text>
       <IconButton
         type={images.update}
         id={props.item.id}

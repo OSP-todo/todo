@@ -30,9 +30,10 @@ export default function App() {
     2: { id: '2', text: 'todo list 2', selected: false, completed: false, WorkOrLife : 'Life', dueDate: '2021/12/16' },
   });  
   const [category, setCategory] = useState('Work');
+  const [dueDate, setDueDate] = useState('2021/12/01');
 
   //work and life ratio
-  const [workRatio, setWorkRatio] = useState(0); //시작은 0이니까
+  const [workRatio, setWorkRatio] = useState(0); //시작은 0
   const [lifeRatio, setLifeRatio] = useState(0);
   const calculateRatio = (tasks) => {
     var work = Object.values(tasks).filter(item => item.WorkOrLife=='Work');
@@ -71,7 +72,7 @@ export default function App() {
   const _addTask = () => {
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: newTask, selected: false, completed: false, WorkOrLife: category },
+      [ID]: { id: ID, text: newTask, selected: false, completed: false, WorkOrLife: category, dueDate: dueDate },
     };
     setTasks({ ...tasks, ...newTaskObject });
     calculateRatio(tasks); //비율 계산 
@@ -110,6 +111,7 @@ export default function App() {
     setNewTask(currentTasks[item.id]['text']);
     setId(item.id);
   };
+
   //모달에서 update버튼 눌렀을 때
   const _updateTask = () => {
     const currentTasks = Object.assign({}, tasks);
@@ -117,13 +119,20 @@ export default function App() {
       if(element.id == id){
         currentTasks[id]['text'] = newTask;
         currentTasks[id]['WorkOrLife'] = category;
+        currentTasks[id]['dueDate'] = dueDate;
       }
     });
     setTasks(currentTasks);
   };
 
+  //work or life modal
   const _submitCategory = (value) => { //카테고리 설정
     setCategory(value);
+  };
+
+  //due date modal
+  const _submitDueDate = (value) => { //카테고리 설정
+    setDueDate(value);
   };
 
   const _handleTextChange = (text) => {
@@ -136,7 +145,7 @@ export default function App() {
       <Text style={textStyles.title}>TODO LIST</Text>
       <ShowDate />
       <View style={styles.workAndLife}>
-        <Text style={{fontSize: 20, fontWeight:'800', color: theme.work}}>WORK</Text><Text style={{fontSize: 15,color:'rgba(1,1,1,0.8)'}}>{workRatio}%</Text>
+        <Text style={{fontSize: 20, fontWeight:'800', color: theme.work}}>WORK</Text><Text style={{fontSize: 15, color:'rgba(1,1,1,0.8)'}}>{workRatio}%</Text>
         {/*<Rate text={`WORK ${workRatio}%`} />*/}
         <ProgressBar borderColor={'rgba(0,0,0,0)'} progress={workRatio/100} height={13} width={200} color={theme.work} unfilledColor={theme.life}/>
         <Text style={{fontSize: 15, color:'rgba(1,1,1,0.8)'}}>{lifeRatio}%</Text><Text style={{fontSize: 20, fontWeight: '800', color: theme.life}}>LIFE</Text>
@@ -173,6 +182,7 @@ export default function App() {
           onChangeText={_handleTextChange}
           onSubmitEditing={isNew ? _addTask : _updateTask}
           submitCategory={_submitCategory}
+          submitDueDate={_submitDueDate}
         />
         <IconButton onPressOut={_deleteTask} type={images.delete} />
         <SelectDropdown

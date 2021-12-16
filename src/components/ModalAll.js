@@ -9,7 +9,7 @@ const ModalAll = (props) => {
   const _taskSubmit = () => {
     props.hide(); //모달 숨기기
     props.onSubmitEditing(); //새로운 task 내용 보내기
-    props.submitCategory('Life');
+    //props.submitCategory('Work');
   }
   return (
     <View>
@@ -22,7 +22,7 @@ const ModalAll = (props) => {
             onChangeText={props.onChangeText}
             onSubmitEditing={props.onSubmitEditing}
           />
-          <ModalDateInput text='Due Date : ' />
+          <ModalDateInput text='Due Date : ' submitDueDate={props.submitDueDate}/>
           <ModalCategInput text='Category : ' submitCategory={props.submitCategory}/>
           {/* <ModalTextInput text='Image : ' />
           <ModalTextInput text='Location : ' />
