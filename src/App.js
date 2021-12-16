@@ -136,10 +136,10 @@ export default function App() {
       <Text style={textStyles.title}>TODO LIST</Text>
       <ShowDate />
       <View style={styles.workAndLife}>
-        <Text style={{fontSize: 20, fontWeight:900, color: theme.work}}>WORK</Text><Text style={{color:'rgba(1,1,1,0.8)'}}>{workRatio}%</Text>
+        <Text style={{fontSize: 20, fontWeight:'800', color: theme.work}}>WORK</Text><Text style={{fontSize: 15,color:'rgba(1,1,1,0.8)'}}>{workRatio}%</Text>
         {/*<Rate text={`WORK ${workRatio}%`} />*/}
-        <ProgressBar borderColor={'rgba(0,0,0,0)'} progress={workRatio/100} height={13} width={180} color={theme.work} unfilledColor={theme.life}/>
-        <Text style={{color:'rgba(1,1,1,0.8)'}}>{lifeRatio}%</Text><Text style={{fontSize: 20, fontWeight:900, color: theme.life}}>LIFE</Text>
+        <ProgressBar borderColor={'rgba(0,0,0,0)'} progress={workRatio/100} height={13} width={200} color={theme.work} unfilledColor={theme.life}/>
+        <Text style={{fontSize: 15, color:'rgba(1,1,1,0.8)'}}>{lifeRatio}%</Text><Text style={{fontSize: 20, fontWeight: '800', color: theme.life}}>LIFE</Text>
       </View>
 
       {/**Top Icon */}

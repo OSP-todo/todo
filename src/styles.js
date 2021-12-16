@@ -14,7 +14,7 @@ export const viewStyles = StyleSheet.create({
 export const textStyles = StyleSheet.create({
     title: {
         fontSize: 35,
-        fontWeight: '600',
+        fontWeight: '800',
         color: theme.main,
         alignItems: 'flex-start',
         marginVertical: 10,
