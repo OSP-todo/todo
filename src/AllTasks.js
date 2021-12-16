@@ -14,23 +14,45 @@ const styles = StyleSheet.create({
 });
 
 function AllTasks(props) {
-  const [tasks, setTasks] = useState(props.tasks);
-  const incompletedTasks = Object.values(props.tasks).filter(item => item.completed==false);
-  const completedTasks = Object.values(props.tasks).filter(item => item.completed==true);
+  const [filteredTasks, setFilteredTasks] = useState(props.tasks);
+  
+  //dueDate 지난건 안보여줌
+  useEffect(()=>{
+    var dueDateTasks = Object.values(props.tasks).filter((item) =>
+      item.dueDate.replace('/','').replace('/','') >= props.topDate.replace('/','').replace('/','')
+    );
+    if(props.filterIndex==0){ //전체
+      setFilteredTasks(dueDateTasks);
+    }else if(props.filterIndex==1){ //미완료
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==false));
+    }else if(props.filterIndex==2){ //완료
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==true));
+    }
+  },[props.topDate]);
 
   useEffect(() => {
+    //메뉴 설정된 상태에서 추가해도 자연스럽게
+    setFilteredTasks(props.tasks);
+    if(props.filterIndex==1){ //미완료
+      setFilteredTasks(Object.values(filteredTasks).filter(item => item.completed==false));
+    }else if(props.filterIndex==2){ //완료
+      setFilteredTasks(Object.values(filteredTasks).filter(item => item.completed==true));
+    } 
+  }, [props.tasks]);
+
+  useEffect(() => {
+    var dueDateTasks = Object.values(props.tasks).filter((item) =>
+      item.dueDate.replace('/','').replace('/','') >= props.topDate.replace('/','').replace('/','')
+    );
+    
     if(props.filterIndex==0){ //전체
-      setTasks(props.tasks);
+      setFilteredTasks(dueDateTasks);
     }else if(props.filterIndex==1){ //미완료
-      setTasks(incompletedTasks);
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==false));
     }else{ //완료
-      setTasks(completedTasks);
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==true));
     }  
   }, [props.filterIndex]);
-
-  useEffect(() => {
-    setTasks(props.tasks);
-  }, [props.tasks]);
   
   return (
     <View
@@ -42,7 +64,7 @@ function AllTasks(props) {
       }}
     >
       <ScrollView style={styles.scrollView}>
-        {Object.values(tasks)
+        {Object.values(filteredTasks)
           .reverse()
           .map((item) => (
             <Task

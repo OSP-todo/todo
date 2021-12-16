@@ -54,6 +54,7 @@ export default (props) => {
               selectTask={props.selectTask}
               updateTask={props.updateTask}
               modalPopup={props.modalPopup}
+              topDate={props.topDate}
             />
           )}
         />
@@ -68,6 +69,7 @@ export default (props) => {
               selectTask={props.selectTask}
               updateTask={props.updateTask}
               modalPopup={props.modalPopup}
+              topDate={props.topDate}
             />
           )}
         />
@@ -82,6 +84,7 @@ export default (props) => {
               selectTask={props.selectTask}
               updateTask={props.updateTask}
               modalPopup={props.modalPopup}
+              topDate={props.topDate}
             />
           )}
         />

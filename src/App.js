@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   StatusBar,
-  Dimensions,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -30,15 +29,23 @@ export default function App() {
     2: { id: '2', text: 'todo list 2', selected: false, completed: false, WorkOrLife : 'Life', dueDate: '2021/12/16' },
   });  
   const [category, setCategory] = useState('Work');
-  const [dueDate, setDueDate] = useState('2021/12/01');
+  const [dueDate, setDueDate] = useState('2021/12/21');
+  const [topDate, setTopDate] = useState('2021/12/21');
+
+  //topDate를 task에 보내줘야해서 (dueDate지난 task는 안보이도록 하는 기능 구현용.)
+  const _submitTopDate = (value) => { //
+    setTopDate(value);
+  };
 
   //work and life ratio
   const [workRatio, setWorkRatio] = useState(0); //시작은 0
   const [lifeRatio, setLifeRatio] = useState(0);
   const calculateRatio = (tasks) => {
     var work = Object.values(tasks).filter(item => item.WorkOrLife=='Work');
-    if(Object.values(tasks).length != 0){
-      const ratio = ((Object.values(work).length/Object.values(tasks).length)*100).toFixed(0);
+    var currentWork= Object.values(work).filter((item) => item.dueDate.replace('/','').replace('/','') >= topDate.replace('/','').replace('/',''));
+    var currentTask= Object.values(tasks).filter((item) => item.dueDate.replace('/','').replace('/','') >= topDate.replace('/','').replace('/',''));
+    if(Object.values(currentTask).length != 0){
+      const ratio = ((Object.values(currentWork).length / Object.values(currentTask).length)*100).toFixed(0);
       setWorkRatio(ratio);
       setLifeRatio(100 - ratio);
     }
@@ -47,6 +54,9 @@ export default function App() {
       setLifeRatio(0);
     }
   }
+  useEffect(() =>{
+    calculateRatio(tasks);
+  }, [topDate]);
   useEffect(() =>{
     calculateRatio(tasks);
   }, [tasks]);
@@ -92,6 +102,7 @@ export default function App() {
         delete currentTasks[item.id];
     });
     setTasks(currentTasks);
+    setAllSelect(false);
   };
 
   const _toggleTask = (id) => {
@@ -143,7 +154,7 @@ export default function App() {
     <SafeAreaView style={viewStyles.container}>
       <StatusBar barStyle='light-content' style={barStyles.statusbar} />
       <Text style={textStyles.title}>TODO LIST</Text>
-      <ShowDate />
+      <ShowDate submitTopDate={_submitTopDate}/>
       <View style={styles.workAndLife}>
         <Text style={{fontSize: 20, fontWeight:'800', color: theme.work}}>WORK</Text><Text style={{fontSize: 15, color:'rgba(1,1,1,0.8)'}}>{workRatio}%</Text>
         {/*<Rate text={`WORK ${workRatio}%`} />*/}
@@ -209,6 +220,7 @@ export default function App() {
           updateTask={_updateTask}
           filterIndex={filterIndex}
           modalPopup={_modalPopup}
+          topDate={topDate}
         />
       </View>
       <Text style={styles.header} onPress={() => onShare(tasks)}>

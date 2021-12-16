@@ -18,6 +18,21 @@ function Life (props) {
   var lifeTasks = Object.values(props.tasks).filter(item => item.WorkOrLife=='Life');
   const [filteredTasks, setFilteredTasks] = useState(lifeTasks);
   
+  //dueDate 지난건 안보여줌
+  useEffect(()=>{
+    var dueDateTasks = Object.values(lifeTasks).filter((item) =>
+      item.dueDate.replace('/','').replace('/','') >= props.topDate.replace('/','').replace('/','')
+    );
+    if(props.filterIndex==0){ //전체
+      setFilteredTasks(dueDateTasks);
+    }else if(props.filterIndex==1){ //미완료
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==false));
+    }else if(props.filterIndex==2){ //완료
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==true));
+    }
+  },[props.topDate]);
+
+  //life
   useEffect(() => {
     lifeTasks = Object.values(props.tasks).filter(item => item.WorkOrLife=='Life');
 
@@ -31,12 +46,16 @@ function Life (props) {
   }, [props.tasks]);
 
   useEffect(() => {
+    var dueDateTasks = Object.values(lifeTasks).filter((item) =>
+      item.dueDate.replace('/','').replace('/','') >= props.topDate.replace('/','').replace('/','')
+    );
+    
     if(props.filterIndex==0){ //전체
-      setFilteredTasks(lifeTasks);
+      setFilteredTasks(dueDateTasks);
     }else if(props.filterIndex==1){ //미완료
-      setFilteredTasks(Object.values(lifeTasks).filter(item => item.completed==false));
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==false));
     }else{ //완료
-      setFilteredTasks(Object.values(lifeTasks).filter(item => item.completed==true));
+      setFilteredTasks(Object.values(dueDateTasks).filter(item => item.completed==true));
     }  
   }, [props.filterIndex]);
 

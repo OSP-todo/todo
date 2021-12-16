@@ -1,20 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import {theme} from '../theme';
 import { images } from '../images';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 
-export default function ShowDate(){
+export default function ShowDate( props ){
     //상단 날짜
-    var today = new Date();
-    var year = today.getFullYear();
-    var month = (today.getMonth()+1);
-    var date = today.getDate();
-    if(month < 10) month = '0' + month;
-    if(date < 10) date = '0' + date;
-    const [topDate, setTopDate] = useState(year + "/" + month  + "/" + date);
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = (today.getMonth()+1);
+  var date = today.getDate();
+  if(month < 10) month = '0' + month;
+  if(date < 10) date = '0' + date;
+  const [topDate, setTopDate] = useState(year + "/" + month  + "/" + date);
 
+  useEffect(() => {
+    props.submitTopDate(topDate);
+  }, [topDate]);
     //date format 바꿔주는 함수
 Date.prototype.format = function (f) {
     if (!this.valueOf()) return ' ';
