@@ -26,8 +26,8 @@ import ProgressBar from 'react-native-progress/Bar';
 export default function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState({
-    1: { id: '1', text: 'todo list 1', selected: false, completed: true, WorkOrLife : 'Work' },
-    2: { id: '2', text: 'todo list 2', selected: false, completed: false, WorkOrLife : 'Life' },
+    1: { id: '1', text: 'todo list 1', selected: false, completed: true, WorkOrLife : 'Work', dueDate: '2021/12/16' },
+    2: { id: '2', text: 'todo list 2', selected: false, completed: false, WorkOrLife : 'Life', dueDate: '2021/12/16' },
   });  
   const [category, setCategory] = useState('Work');
 
@@ -136,9 +136,10 @@ export default function App() {
       <Text style={textStyles.title}>TODO LIST</Text>
       <ShowDate />
       <View style={styles.workAndLife}>
-        <Rate text={`WORK ${workRatio}%`} />
-        <ProgressBar borderColor={'rgba(0,0,0,0)'} progress={workRatio/100} height={13} width={180} color={'#F0A96C'} unfilledColor={'#CCCCFF'}/>
-        <Rate text={`LIFE ${lifeRatio}%`} />
+        <Text style={{fontSize: 20, fontWeight:900, color: theme.work}}>WORK</Text><Text style={{color:'rgba(1,1,1,0.8)'}}>{workRatio}%</Text>
+        {/*<Rate text={`WORK ${workRatio}%`} />*/}
+        <ProgressBar borderColor={'rgba(0,0,0,0)'} progress={workRatio/100} height={13} width={180} color={theme.work} unfilledColor={theme.life}/>
+        <Text style={{color:'rgba(1,1,1,0.8)'}}>{lifeRatio}%</Text><Text style={{fontSize: 20, fontWeight:900, color: theme.life}}>LIFE</Text>
       </View>
 
       {/**Top Icon */}

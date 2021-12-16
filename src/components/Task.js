@@ -7,7 +7,7 @@ import { images } from '../images';
 
 const Task = (props) => {
   return (
-    <View style={taskStyle.container}>
+    <View style={(props.item.WorkOrLife==='Work') ? taskStyle.workContainer : taskStyle.lifeContainer}>
       <IconButton 
         type={props.item.selected ? images.selected : images.unselected}
         id={props.item.id}
@@ -41,16 +41,24 @@ const Task = (props) => {
 };
 
 const taskStyle = StyleSheet.create({
-  container: {
+  workContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.itemBackground,
+    backgroundColor: theme.work,
     borderRadius: 10,
     padding: 5,
     marginTop: 3,
     marginLeft: 0,
   },
-
+  lifeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.life,
+    borderRadius: 10,
+    padding: 5,
+    marginTop: 3,
+    marginLeft: 0,
+  },
   contents: {
     flex: 1,
     fontSize: 20,
