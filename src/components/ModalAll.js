@@ -47,7 +47,7 @@ const ModalAll = (props) => {
                 margin: 5,
                 paddingHorizontal: 15,
                 borderRadius: 10,
-                backgroundColor: "#F0A96C",
+                backgroundColor: "#BEC0D6",
               }}
             >
               <Text>취소</Text>

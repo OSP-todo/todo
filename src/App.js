@@ -25,8 +25,8 @@ import ProgressBar from 'react-native-progress/Bar';
 export default function App() {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState({
-    1: { id: '1', text: 'todo list 1', selected: false, completed: true, WorkOrLife : 'Work', dueDate: '2021/12/16' },
-    2: { id: '2', text: 'todo list 2', selected: false, completed: false, WorkOrLife : 'Life', dueDate: '2021/12/16' },
+    //1: { id: '1', text: 'todo list 1', selected: false, completed: true, WorkOrLife : 'Work', dueDate: '2021/12/16' },
+    //2: { id: '2', text: 'todo list 2', selected: false, completed: false, WorkOrLife : 'Life', dueDate: '2021/12/16' },
   });  
   const [category, setCategory] = useState('Work');
   const [dueDate, setDueDate] = useState('2021/12/21');
