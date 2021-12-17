@@ -235,12 +235,12 @@ export default function App() {
           submitDueDate={_submitDueDate}
         />
         <IconButton onPressOut={_deleteTask} type={images.delete} />
-        <Text style={{ width: 90 }}></Text>
+        <Text style={{ width: 50 }}></Text>
         <SelectDropdown
           data={['All', 'Incomplete', 'Complete']}
           defaultValueByIndex={0}
           buttonStyle={{
-            width: '30%',
+            width: '42%',
             height: '80%',
             backgroundColor: '#FFF',
             borderRadius: 10,
