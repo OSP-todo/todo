@@ -237,7 +237,7 @@ export default function App() {
         <IconButton onPressOut={_deleteTask} type={images.delete} />
         <Text style={{ width: 90 }}></Text>
         <SelectDropdown
-          data={['전체', '미완료', '완료']}
+          data={['All', 'Incomplete', 'Complete']}
           defaultValueByIndex={0}
           buttonStyle={{
             width: '30%',
@@ -269,7 +269,7 @@ export default function App() {
         />
       </View>
       <Text style={styles.header} onPress={() => onShare(tasks)}>
-        오늘 할 일 공유하기
+        Share my todo list
       </Text>
     </SafeAreaView>
   );

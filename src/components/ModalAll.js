@@ -10,7 +10,7 @@ const ModalAll = (props) => {
     props.hide(); //모달 숨기기
     props.onSubmitEditing(); //새로운 task 내용 보내기
     //props.submitCategory('Work');
-  }
+  };
   return (
     <View>
       <Modal visible={props.isVisible} transparent={true}>
@@ -22,8 +22,14 @@ const ModalAll = (props) => {
             onChangeText={props.onChangeText}
             onSubmitEditing={props.onSubmitEditing}
           />
-          <ModalDateInput text='Due Date : ' submitDueDate={props.submitDueDate}/>
-          <ModalCategInput text='Category : ' submitCategory={props.submitCategory}/>
+          <ModalDateInput
+            text='Due Date : '
+            submitDueDate={props.submitDueDate}
+          />
+          <ModalCategInput
+            text='Category : '
+            submitCategory={props.submitCategory}
+          />
           {/* <ModalTextInput text='Image : ' />
           <ModalTextInput text='Location : ' />
           <ModalTextInput text='Share : ' /> */}
@@ -38,7 +44,7 @@ const ModalAll = (props) => {
                 backgroundColor: theme.itemBackground,
               }}
             >
-              <Text>{props.isNew ? 'submit' : 'update'}</Text>
+              <Text>{props.isNew ? 'Submit' : 'Update'}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => props.hide()}
@@ -47,10 +53,10 @@ const ModalAll = (props) => {
                 margin: 5,
                 paddingHorizontal: 15,
                 borderRadius: 10,
-                backgroundColor: "#BEC0D6",
+                backgroundColor: '#BEC0D6',
               }}
             >
-              <Text>취소</Text>
+              <Text>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -87,9 +93,9 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   buttonStyle: {
-    flexDirection: "row",
-    alignItems: "center"
-  }
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default ModalAll;
