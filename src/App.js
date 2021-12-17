@@ -242,9 +242,23 @@ export default function App() {
           buttonStyle={{
             width: '30%',
             height: '80%',
+            backgroundColor: '#FFF',
+            borderRadius: 10,
+            borderWidth: 1.5,
+            borderColor: '#b1b1b1',
             marginRight: 5,
             marginLeft: 20,
           }}
+          renderDropdownIcon={(isOpened) => {
+            return (
+              <MaterialCommunityIcons
+                name={isOpened ? 'chevron-up' : 'chevron-down'}
+                size={24}
+                color='black'
+              />
+            );
+          }}
+          dropdownIconPosition={'right'}
           onSelect={(selectedItem, index) => {
             setFilterIndex(index);
           }}
