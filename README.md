@@ -2,6 +2,9 @@
 React-Native / expo로 구현한 To Do List.  
 일과 관련된 To-Do-Item을 Work로, 삶과 관련된 To-Do-Item을 Life Category로 설정하여  
 Work와 Life의 균형을 progress Bar로 확인할 수 있다.  
+> ⏩<b> EXPO QR CODE</b>  
+> ![QR코드](https://user-images.githubusercontent.com/71166763/146647811-14346988-060a-4b70-a1f3-ef3caccc4d08.png)
+
 ## 1. Add a to-do item
 ![add](https://user-images.githubusercontent.com/71166763/146646691-5a16bf57-c97d-4612-bc08-107a25561dc3.png)  
 ## 2. Set a category ( Work / Life )
